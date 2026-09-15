@@ -1,0 +1,20 @@
+---
+title: "Grounded: Klimaat, Bodem en Data: werken met R"
+format: html
+author:
+  - name: Ronald Visser
+    orcid: 0000-0001-6966-1729
+    email: r.m.visser@saxion.nl
+    affiliation: 
+      - name: Saxion University of Applied Sciences
+        city: Deventer
+        country: Netherlands
+---
+
+Deze [quarto](https://quarto.org/)-website bevat een aantal oefeningen om te leren werken met [R](https://www.r-project.org/). Het bestaat uit drie verschillende werkcolleges:
+
+- College 1
+- College 2
+- College 3
+
+Voordat je aan college 1 begint, moet je eerst zorgen dat je R geïnstalleerd hebt. Zorg dat je R eerst download vanaf <https://cran.r-project.org/>. We maken gebruik van RStudio. Nadat je R geïnstalleerd hebt, download daarna RStudio en installeer dat. Ga daarvoor naar: <https://posit.co/downloads/>

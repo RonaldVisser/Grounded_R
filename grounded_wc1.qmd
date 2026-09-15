@@ -1,0 +1,178 @@
+---
+title: "Werkcollege 1"
+---
+
+# Projecten in RStudio
+
+We gaan eerst even leren werken in RStudio. Dit is een gratis en open-source geïntegreerde ontwikkelomgeving (IDE) voor R. Hierin is het belangrijk om met projecten te werken, omdat dit programmeren in R eenvoudiger en sneller maakt. Als je in een project werkt, wordt de werkdirectory automatisch ingesteld; iets wat je handmatig moet doen wanneer je R-scripts buiten projecten om schrijft. De eerste stap om aan een nieuw onderzoek te beginnen, is dus RStudio openen en vervolgens een nieuw project aan te maken.
+
+De stappen die je daarvoor moet zetten, staan heel goed uitgelegd op de website van de makers: <https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects>.
+
+## Opdracht 1:
+
+Maak een nieuw project aan. Deze noemen we nu Grounded_WC1.
+
+## Opdracht 2:
+
+Het project bevat nog geen bestanden. Daarom maken we nu een eerste script aan. Dat kan via het menu middels `File > New File > R Script` (of druk op CTRL + SHIFT + N).
+
+In het lege script moeten jullie nu de eerste regel code schrijven
+
+`print("Hello World!")`
+
+Dit is de regel waarmee vrijwel iedere programmeeroefening begint. Je kunt dit bestand nu opslaan door op de save-knop te drukken of via CTRL + S het op te slaan. Kies een logische bestandsnaam, bijvoorbeeld: "Grounded_WC1.R"
+
+Je kunt dit script nu als geheel uitvoeren door CTRL + SHIFT + S te typen of op de "Source"-knop te klikken. Als het goed is, krijg je nu de output "Hello World!" in het Console-scherm. Dat is jouw eerste script!
+
+## Opdracht 3
+
+De regel met `hello world` was maar een voorbeeld en die hebben we niet meer nodig. Verwijder dus de tekst. De gaan nu een script maken om een simpele analyse uit te voeren. Daartoe hebben we een aantal libraries nodig. Libraries, ook wel packages genoemd, zijn collecties met kant en klare functies en datasets.
+
+Kopiëer de onderstaande code naar jouw script uit de voorgaande opdracht.
+
+```{r, warning=FALSE, message=FALSE}
+# load libraries
+library(dplyr)
+library(ggplot2)
+
+# force non scientific formatting of numbers
+options(scipen = 999)
+options(digits=3)
+```
+
+::: callout-tip
+Het hashtag symbool ( \# ) gebruik je voor commentaren in de code. Dit wordt nooit uitgevoerd, maar vergroot de leesbaarheid van een script.
+:::
+
+Naast het laden van libraries, stellen we ook de formatting van getallen in, door het aantal decimalen op 3 te zetten en getallen non-scientific te zetten.
+
+::: callout-tip
+Hierna zullen we niet meer zeggen dat je code moet kopiëren. We gaan ervan uit dat je dat doet. COde is herkenbaar aan het eigen `lettertype`.
+:::
+
+We gaan nu eerst twee mappen aanmaken. De eerste `data` is voor het opslaan van de ruwe data. Daarnaast een map waarin we grafieken en dergelijke exporteren, die noemen we `export`
+
+```{r, warning=FALSE, message=FALSE}
+# create folders
+dir.create("data")
+dir.create("export")
+
+```
+
+## Opdracht 4: inlezen grondwater data
+
+Ga nu naar de website <https://www.grondwatertools.nl/gwsinbeeld/>. Zoek op de kaart naar Deventer en zoek het grondwaterpunt "B27G0060".
+
+![De website \<https://www.grondwatertools.nl/gwsinbeeld/\> met daarin het grondwaterpunt B27G0318.](img/grondwaterstandinbeeld.png)
+
+Als je nu op de link met "Toon" erop klikt, krijg je het onderstaande beeld. Bij het hamburger-menu kun je de optie "Download CSV" kiezen.
+
+![De grondwaterstanden van meetpunt B27G0060 op website \<https://www.grondwatertools.nl/gwsinbeeld/\>.](img/grondwaterstandinbeeld_BG27G0060.png)
+
+Download dit bestand en sla het op in de `data` map van het project.
+
+De volgende stap is het inladen van dit databestand in de R-omgeving. Dat doen we met de functie `read.csv()` zoals in de onderstaande code is aangegeven. Je ziet ook een pijl staan: `<-`. Dat is de toewijzing aan een variabele. Deze regel betekent letterlijk: maak de variable `B27G0060001`aan door middel van het uitvoeren van de functie `read.csv("data/B27G0060001_meetreeks.csv")`. Dit is standaard-syntax in R.
+
+```{r, warning=FALSE, message=FALSE}
+# read data
+B27G0060001 <- read.csv("data/B27G0060001_meetreeks.csv")
+```
+
+::: callout-tip
+Een variabele is een container waarin data wordt opgeslagen (<https://www.w3schools.com/r/r_variables.asp>). Deze data een enkel getal of tekst zijn, maar ook een hele tabel, matrix of een ander soort object. Het is heel flexibel en de toekenning bepaalt het type. De naamgeving van een variabele is aan regels gebonden, zie: <https://www.w3schools.com/r/r_variables_name.asp>. Let op! Een variabele kun je makkelijk overschrijven door deze opnieuw te definiëren.
+:::
+
+Wanneer we nu willen weten welke data is ingelezen, kun je de data snel bekijken met de functie `head()`
+
+```{r, warning=FALSE, message=FALSE}
+head(B27G0060001)
+```
+
+Dat ziet er niet goed uit. Als je het csv-bestand opent in een tekst-editor, zoals Notepad/Kladblok of Notepad++ (<https://notepad-plus-plus.org/>) zul je zien dat de data er zo uitziet.
+
+De functie `read.csv()` gaat ervanuit dat een csv uit "comma-separated values" bestaat (<https://nl.wikipedia.org/wiki/Kommagescheiden_bestand>), vandaar ook de bestandsnaam. De leveranciers van de waterstanden gebruiken echter een puntkomma (;). Gelukkig is de functie flexibel en kun je dit als optie invoeren bij de functie. Als je de code aanpast naar de onderstaande tekst, zal de data wel goed ingelezen worden.
+
+```{r, warning=FALSE, message=FALSE}
+# read data
+B27G0060001 <- read.csv("data/B27G0060001_meetreeks.csv", sep = ";")
+head(B27G0060001)
+```
+
+## Opdracht 5: verkennen van de data
+
+Nu de data ingelezen is, kunnen we een aantal zaken te weten komen, zoals de gemiddelde grondwaterstand en bijbehorende standaarddeviatie, en bijvoorbeeld de maximale en minimale standen. Daartoe willen we eigenlijk alleen in de kolom `meting`van ons data.frame kijken. Dat doe je door de variable te noemen met daaraan vast een \$-teken en dan de naam van de kolom: `B27G0060001$meting`
+
+```{r, warning=FALSE, message=FALSE}
+# minimale grondwaterstand
+min(B27G0060001$meting)
+# maximale grondwaterstand
+max(B27G0060001$meting)
+# gemiddelde grondwaterstand
+mean(B27G0060001$meting)
+# en de standaarddeviatie
+sd(B27G0060001$meting)
+```
+
+De waardes worden niet toegewezen aan variabelen, maar we krijgen wel een beeld van de data. Het is wat omslachtig om dit allemaal apart te berekenen voor een overzicht, dus voor dat doel is de functie `summary()` handiger.
+
+```{r, warning=FALSE, message=FALSE}
+# descriptieve data over de grondwaterstanden
+summary(B27G0060001)
+```
+
+Wanneer we echter willen weten wanneer de hoogste grondwaterstand bereikt werd, kan dat door het maximum te zoeken en dat te bepalen bij welke datum dit hoort. In R nemen we dan onze variable B27G0060001 en zoeken dan in de kolom die datum heet. De vierkante haken \[\] gebruiken we om aan te geven waar we gaan zoeken. Zo kun je zoeken naar de eerste waarde van een kolom of lijst door bijvoorbeeld `B27G0060001$datum[1]` in te geven. We moeten daarom weten wat de positie is van de hoogste grondwaterstand in het data.frame. Daarom moeten we in de metingen zoeken naar het maximum. De code `B27G0060001$meting==max(B27G0060001$meting)` geeft daan dat we willen weten wanneer de `meting` gelijk is aan het maximum. Let op dat je de '==' gebruikt, want dat geeft aan dat je naar *is gelijk aan* wil zoeken. Bij een enkele = maak je alles gelijk aan. De code `B27G0060001$meting==max(B27G0060001$meting)` geeft een waar-onwaar matrix. Door met deze matrix te zoeken in de kolom met datum vinden we de datum waarop de hoogste grondwaterstand waar is.
+
+```{r, warning=FALSE, message=FALSE}
+# de eerste datum in de lijst
+B27G0060001$datum[1]
+# de 25e datum in de lijst
+B27G0060001$datum[25]
+# de meting die gelijk is aan het maximum
+maximum_stand_waar <- B27G0060001$meting==max(B27G0060001$meting)
+# de datum met de maximale grondwaterstand
+B27G0060001$datum[maximum_stand_waar]
+# of als 1 lijn code
+B27G0060001$datum[B27G0060001$meting==max(B27G0060001$meting)]
+```
+
+### En nu zelf:
+
+1.  Zoek de datum waarop de laagste grondwaterstand werd bereikt.
+2.  Op welke data was de grondwaterstand lager dan de gemiddelde grondwaterstand?
+3.  Op welke data was de grondwaterstand lager dan de mediaan van grondwaterstand?
+
+## Opdracht 6: de eerste grafieken
+
+We gaan nu een eerste grafiek maken met deze gegevens. Hiertoe maken we gebruik van de ggplot2 library. Daarnaast gaan we leren te werken met de syntax die hoort by de zogenaamde tidyverse. Dat doen we door gebruik te maken van een pipe (`|>`). Met dit sympool stuur je als het ware gegevens door.
+In het onderstaande voorbeeld nemen we de dataset als uitgangspunt en dan pipen we die naar de ggplot-functie, waarbij we aangeven dat de datum op de x-as komt te staan en de metingen op de y-as.
+
+```{r, warning=FALSE, message=FALSE}
+# een grafiek met punten
+B27G0060001 |> 
+  ggplot(aes(x=datum, y=meting)) + geom_point()
+```
+
+De grafiek is nog niet zo heel mooi en leesbaar. Dat ligt ook aan leesbaarheid van de x-as, dus laten we de labels roteren en er een lijn-geometrie aan toevoegen
+
+```{r}
+# een grafiek met punten
+B27G0060001 |> 
+  ggplot(aes(x=datum, y=meting)) + 
+  geom_point() + 
+  geom_line() +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0))
+```
+
+De labels zijn nu gedraaid, maar nog niet echt leesbaar. Daarnaast worden de waardes op de x-as als nominale data ingelezen, waarbij iedere waarde uniek is, terwijl het om tijd gaat. In dit geval wordt datum als een tekst-variable gezien en niet als datum. Dat moeten we dus aangeven. Daarvoor is een standaard functie beschikbaar `as.POSIXct()`, waarbij het wel belangrijk is om aan te geven dat we de Amsterdamse tijdzone willen gebruiken. Dat kan ook in één code.
+Daarnaast is het ook belahgrijk om duidelijke as-labels te hebben, dus ook dat voegen we met een stukje code toe (`+ labs(x="Tijd", y="Grondwaterstand (NAP)")`).
+
+```{r}
+# een grafiek met punten
+B27G0060001 |> 
+  mutate(datum = as.POSIXct(datum, tz = "Europe/Amsterdam" )) |> 
+  ggplot(aes(x=datum, y=meting)) + 
+  geom_point() + 
+  geom_line() +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0)) +
+  labs(x="Tijd", y="Grondwaterstand (NAP)")
+```
