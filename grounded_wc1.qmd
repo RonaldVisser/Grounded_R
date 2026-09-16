@@ -34,6 +34,7 @@ Kopiëer de onderstaande code naar jouw script uit de voorgaande opdracht.
 # load libraries
 library(dplyr)
 library(ggplot2)
+library(lubridate)
 
 # force non scientific formatting of numbers
 options(scipen = 999)
@@ -167,7 +168,7 @@ De labels zijn nu gedraaid, maar nog niet echt leesbaar. Daarnaast worden de waa
 Daarnaast is het ook belahgrijk om duidelijke as-labels te hebben, dus ook dat voegen we met een stukje code toe (`+ labs(x="Tijd", y="Grondwaterstand (NAP)")`).
 
 ```{r}
-# een grafiek met punten
+# een grafiek met punten en lijn
 B27G0060001 |> 
   mutate(datum = as.POSIXct(datum, tz = "Europe/Amsterdam" )) |> 
   ggplot(aes(x=datum, y=meting)) + 
@@ -176,3 +177,69 @@ B27G0060001 |>
   theme(axis.text.x=element_text(angle = -90, hjust = 0)) +
   labs(x="Tijd", y="Grondwaterstand (NAP)")
 ```
+
+Deze grafiek is nu beter leesbaar en de verschillende momenten in de tijd worden automatisch gegroepeerd in chronologische volgorde. 
+
+We hebben in het voorgaande voorbeeld in de code het datatype van de kolom datum tijdelijk aangepast. Dat kan ook meer blijvend bij het importeren van de data. Dat kan door de volgende code, waarmee we de kolom data muteren van een tekst-kolom naar een kolom met datum/tijd eigenschappen:
+```{r}
+# tijd in data.frame goed vastleggen
+B27G0060001 <- B27G0060001 |> 
+  mutate(datum = as.POSIXct(datum, tz = "Europe/Amsterdam" )) 
+
+```
+
+Het is echter logischer om dit meteen bij de import van het CSV-bestand te doen. Dat kan met de onderstaande code
+
+```{r}
+# tijd in data.frame goed vastleggen tijdens de import
+B27G0060001 <- read.csv("data/B27G0060001_meetreeks.csv", sep = ";") |> 
+  mutate(datum = as.POSIXct(datum, tz = "Europe/Amsterdam" )) 
+```
+
+Laten we de data verder verkennen. De eerste stap is een boxplot voor alle grondwaterstanden te maken
+
+```{r}
+# een boxplot maken
+B27G0060001 |> 
+  ggplot(aes(y=meting)) + geom_boxplot() + 
+  labs(y="Grondwaterstand (NAP)")
+```
+
+Het is echter ook mogelijk om de data te groeperen per jaar, om zo inzicht te krijgen in de waterstanden per kalenderjaar. Dit is mogelijk omdat we datum een datum-tijd veld gemaakt hebben. Dankzij het lubridate-package kunnen we makkelijk datum en tijd berekeningen maken. De functie `year()` extraheert het jaar uit een datum. In het onderstaande voorbeeld kun je dus de data groeperen op het jaar en daarna per jaar een boxplot maken.
+
+```{r}
+# een boxplot per jaar
+B27G0060001 |> 
+  group_by(jaar = year(datum)) |> 
+  ggplot(aes(x=jaar, y = meting)) + geom_boxplot(aes(group = jaar)) +
+  labs(x="Grondwaterstand (NAP)")
+```
+Het valt nu op dat er veel variatie zit in de jaren, maar ook dat in sommige jaren de waardes wat dichter bij elkaar liggen. Dit is moeilijk uit een boxplot te halen, maar een [*violin plot*](https://en.wikipedia.org/wiki/Violin_plot) geeft soms meer inzicht in hoe de waardes verdeeld zijn.
+
+```{r, warning=FALSE, message=FALSE}
+# een violin plot per jaar
+B27G0060001 |> 
+  group_by(jaar = year(datum)) |> 
+  ggplot(aes(x=jaar, y = meting)) + geom_violin(aes(group = jaar)) +
+  labs(x="Grondwaterstand (NAP)")
+```
+Het is dan ook belangrijk om te weten hoeveel metingen er per jaar zijn. Dat is eenvoudig te visualiseren met behulp van een staafdiagram. Hiertoe moeten we eerst de data weer groeperen per jaar en daarna tellen hoeveel metingen er per jaar zijn. Standaard gaat ggplot uit van het zelf bepalen van de aantallen op basis van de data, maar in dit geval weten we wat de x en de y moet worden en vertellen we dat aan `geom_bar()` door  `geom_bar(stat = "identity")` als argument mee te geven, hiermee kun je zelf de x en de y vaststellen. 
+
+```{r, warning=FALSE, message=FALSE}
+# een bar plot voor aantal metingen per jaar
+B27G0060001 |> 
+  group_by(jaar = year(datum)) |> 
+  summarise(aantal = n()) |> 
+  ggplot(aes(x = jaar, y = aantal)) + geom_bar(stat = "identity") +
+  labs(x="Jaar", y="Aantal")
+```
+
+### En nu zelf:
+
+1.  Maak de bovenstaande grafieken (boxplot en staafdiagram van aantal metingen per jaar) ook maken voor de maanden. Op die manier kun je zien of er in bepaalde maanden vaker de grondwaterstanden vaker gemeten is.
+2.  Het is ook mogelijk om een trend te visualiseren in `ggplot()`. Hiertoe gebruik je `geom_smooth()`. Maak een grafiek met de boxplots per jaar, met daaraan toegevoegd de trendlijn
+3.  Maak een boxplot, waarbij je laat zien wat de grondwaterstanden zijn voor ieder van de vier seizoenen. (<https://www.knmi.nl/over-het-knmi/nieuws/vier-of-zes-seizoenen>)
+
+
+
+https://r-graph-gallery.com/279-plotting-time-series-with-ggplot2.html
