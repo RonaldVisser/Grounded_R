@@ -1,0 +1,11 @@
+# Introductie
+
+Dit [quarto](https://quarto.org/)-boek bevat een aantal oefeningen om te leren werken met [R](https://www.r-project.org/). Het bestaat uit drie verschillende werkcolleges:
+
+- College 1
+- College 2
+- College 3
+
+Voordat je aan college 1 begint, moet je eerst zorgen dat je R geïnstalleerd hebt. Zorg dat je R eerst download vanaf <https://cran.r-project.org/>. Installeer dit daarna.
+
+We maken in dit werkcollege gebruik van RStudio. Nadat je R geïnstalleerd hebt, download je RStudio vanaf <https://posit.co/downloads/> en installeer dit ook.

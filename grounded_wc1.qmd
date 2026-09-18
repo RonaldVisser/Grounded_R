@@ -1,12 +1,13 @@
 ---
 title: "Werkcollege 1"
+bibliography: references.bib
 ---
 
 # Projecten in RStudio
 
 We gaan eerst even leren werken in RStudio. Dit is een gratis en open-source geïntegreerde ontwikkelomgeving (IDE) voor R. Hierin is het belangrijk om met projecten te werken, omdat dit programmeren in R eenvoudiger en sneller maakt. Als je in een project werkt, wordt de werkdirectory automatisch ingesteld; iets wat je handmatig moet doen wanneer je R-scripts buiten projecten om schrijft. De eerste stap om aan een nieuw onderzoek te beginnen, is dus RStudio openen en vervolgens een nieuw project aan te maken.
 
-De stappen die je daarvoor moet zetten, staan heel goed uitgelegd op de website van de makers: <https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects>.
+De stappen die je daarvoor moet zetten, staan heel goed uitgelegd op de website van de makers: <https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects>. Volg die stappen dus voor opdracht 1.
 
 ## Opdracht 1:
 
@@ -44,6 +45,8 @@ options(digits=3)
 ::: callout-tip
 Het hashtag symbool ( \# ) gebruik je voor commentaren in de code. Dit wordt nooit uitgevoerd, maar vergroot de leesbaarheid van een script.
 :::
+
+De kans is groot dat de eerste keer de libraries dplyr [@wickham2023], ggplot [@wickham2016] en lubridate [@grolemund2011] nog niet geïnstalleerd zijn. De installatie van packages staat uitgelegd op bijvoorbeeld deze locatie: <https://libguides.chapman.edu/R/packages>. Volg deze stappen indien nodig.
 
 Naast het laden van libraries, stellen we ook de formatting van getallen in, door het aantal decimalen op 3 te zetten en getallen non-scientific te zetten.
 
@@ -144,8 +147,7 @@ B27G0060001$datum[B27G0060001$meting==max(B27G0060001$meting)]
 
 ## Opdracht 6: de eerste grafieken
 
-We gaan nu een eerste grafiek maken met deze gegevens. Hiertoe maken we gebruik van de ggplot2 library. Daarnaast gaan we leren te werken met de syntax die hoort by de zogenaamde tidyverse. Dat doen we door gebruik te maken van een pipe (`|>`). Met dit sympool stuur je als het ware gegevens door.
-In het onderstaande voorbeeld nemen we de dataset als uitgangspunt en dan pipen we die naar de ggplot-functie, waarbij we aangeven dat de datum op de x-as komt te staan en de metingen op de y-as.
+We gaan nu een eerste grafiek maken met deze gegevens. Hiertoe maken we gebruik van de ggplot2 library. Daarnaast gaan we leren te werken met de syntax die hoort by de zogenaamde tidyverse. Dat doen we door gebruik te maken van een pipe (`|>`). Met dit sympool stuur je als het ware gegevens door. In het onderstaande voorbeeld nemen we de dataset als uitgangspunt en dan pipen we die naar de ggplot-functie, waarbij we aangeven dat de datum op de x-as komt te staan en de metingen op de y-as.
 
 ```{r, warning=FALSE, message=FALSE}
 # een grafiek met punten
@@ -164,8 +166,7 @@ B27G0060001 |>
   theme(axis.text.x=element_text(angle = -90, hjust = 0))
 ```
 
-De labels zijn nu gedraaid, maar nog niet echt leesbaar. Daarnaast worden de waardes op de x-as als nominale data ingelezen, waarbij iedere waarde uniek is, terwijl het om tijd gaat. In dit geval wordt datum als een tekst-variable gezien en niet als datum. Dat moeten we dus aangeven. Daarvoor is een standaard functie beschikbaar `as.POSIXct()`, waarbij het wel belangrijk is om aan te geven dat we de Amsterdamse tijdzone willen gebruiken. Dat kan ook in één code.
-Daarnaast is het ook belahgrijk om duidelijke as-labels te hebben, dus ook dat voegen we met een stukje code toe (`+ labs(x="Tijd", y="Grondwaterstand (NAP)")`).
+De labels zijn nu gedraaid, maar nog niet echt leesbaar. Daarnaast worden de waardes op de x-as als nominale data ingelezen, waarbij iedere waarde uniek is, terwijl het om tijd gaat. In dit geval wordt datum als een tekst-variable gezien en niet als datum. Dat moeten we dus aangeven. Daarvoor is een standaard functie beschikbaar `as.POSIXct()`, waarbij het wel belangrijk is om aan te geven dat we de Amsterdamse tijdzone willen gebruiken. Dat kan ook in één code. Daarnaast is het ook belahgrijk om duidelijke as-labels te hebben, dus ook dat voegen we met een stukje code toe (`+ labs(x="Tijd", y="Grondwaterstand (NAP)")`).
 
 ```{r}
 # een grafiek met punten en lijn
@@ -178,9 +179,10 @@ B27G0060001 |>
   labs(x="Tijd", y="Grondwaterstand (NAP)")
 ```
 
-Deze grafiek is nu beter leesbaar en de verschillende momenten in de tijd worden automatisch gegroepeerd in chronologische volgorde. 
+Deze grafiek is nu beter leesbaar en de verschillende momenten in de tijd worden automatisch gegroepeerd in chronologische volgorde.
 
 We hebben in het voorgaande voorbeeld in de code het datatype van de kolom datum tijdelijk aangepast. Dat kan ook meer blijvend bij het importeren van de data. Dat kan door de volgende code, waarmee we de kolom data muteren van een tekst-kolom naar een kolom met datum/tijd eigenschappen:
+
 ```{r}
 # tijd in data.frame goed vastleggen
 B27G0060001 <- B27G0060001 |> 
@@ -214,6 +216,7 @@ B27G0060001 |>
   ggplot(aes(x=jaar, y = meting)) + geom_boxplot(aes(group = jaar)) +
   labs(x="Grondwaterstand (NAP)")
 ```
+
 Het valt nu op dat er veel variatie zit in de jaren, maar ook dat in sommige jaren de waardes wat dichter bij elkaar liggen. Dit is moeilijk uit een boxplot te halen, maar een [*violin plot*](https://en.wikipedia.org/wiki/Violin_plot) geeft soms meer inzicht in hoe de waardes verdeeld zijn.
 
 ```{r, warning=FALSE, message=FALSE}
@@ -223,7 +226,8 @@ B27G0060001 |>
   ggplot(aes(x=jaar, y = meting)) + geom_violin(aes(group = jaar)) +
   labs(x="Grondwaterstand (NAP)")
 ```
-Het is dan ook belangrijk om te weten hoeveel metingen er per jaar zijn. Dat is eenvoudig te visualiseren met behulp van een staafdiagram. Hiertoe moeten we eerst de data weer groeperen per jaar en daarna tellen hoeveel metingen er per jaar zijn. Standaard gaat ggplot uit van het zelf bepalen van de aantallen op basis van de data, maar in dit geval weten we wat de x en de y moet worden en vertellen we dat aan `geom_bar()` door  `geom_bar(stat = "identity")` als argument mee te geven, hiermee kun je zelf de x en de y vaststellen. 
+
+Het is dan ook belangrijk om te weten hoeveel metingen er per jaar zijn. Dat is eenvoudig te visualiseren met behulp van een staafdiagram. Hiertoe moeten we eerst de data weer groeperen per jaar en daarna tellen hoeveel metingen er per jaar zijn. Standaard gaat ggplot uit van het zelf bepalen van de aantallen op basis van de data, maar in dit geval weten we wat de x en de y moet worden en vertellen we dat aan `geom_bar()` door `geom_bar(stat = "identity")` als argument mee te geven, hiermee kun je zelf de x en de y vaststellen.
 
 ```{r, warning=FALSE, message=FALSE}
 # een bar plot voor aantal metingen per jaar
@@ -234,12 +238,14 @@ B27G0060001 |>
   labs(x="Jaar", y="Aantal")
 ```
 
+::: callout-tip
+Wil je meer weten over het visualiseren van tijdreeksen, staan hier wat handige tips: <https://r-graph-gallery.com/279-plotting-time-series-with-ggplot2.html>
+:::
+
 ### En nu zelf:
 
 1.  Maak de bovenstaande grafieken (boxplot en staafdiagram van aantal metingen per jaar) ook maken voor de maanden. Op die manier kun je zien of er in bepaalde maanden vaker de grondwaterstanden vaker gemeten is.
 2.  Het is ook mogelijk om een trend te visualiseren in `ggplot()`. Hiertoe gebruik je `geom_smooth()`. Maak een grafiek met de boxplots per jaar, met daaraan toegevoegd de trendlijn
 3.  Maak een boxplot, waarbij je laat zien wat de grondwaterstanden zijn voor ieder van de vier seizoenen. (<https://www.knmi.nl/over-het-knmi/nieuws/vier-of-zes-seizoenen>)
 
-
-
-https://r-graph-gallery.com/279-plotting-time-series-with-ggplot2.html
+# Opdracht 7: combineren van data
