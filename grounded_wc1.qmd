@@ -248,4 +248,36 @@ Wil je meer weten over het visualiseren van tijdreeksen, staan hier wat handige 
 2.  Het is ook mogelijk om een trend te visualiseren in `ggplot()`. Hiertoe gebruik je `geom_smooth()`. Maak een grafiek met de boxplots per jaar, met daaraan toegevoegd de trendlijn
 3.  Maak een boxplot, waarbij je laat zien wat de grondwaterstanden zijn voor ieder van de vier seizoenen. (<https://www.knmi.nl/over-het-knmi/nieuws/vier-of-zes-seizoenen>)
 
-# Opdracht 7: combineren van data
+## Opdracht 7: combineren van data
+
+Het is misschien opgevallen dat de metingen na 2000 ophouden. Voor de meer recente data hebben we blijkbaar een andere bron nodig. Gelukkig kan dat via <https://opendata.munisense.net/nl/>. Daar vinden we een punt dat zeer vlakbij het meetpunt uit de voorgaande oefening ligt: meetpunt 660721.
+
+![De website van <https://opendata.munisense.net/nl/> ](img/opendata.munisense.net.png)
+
+Wanneer je een CSV-bestand met alle metingen van het meetpunt download en opent in een tekst-editor, zul je zien dat de eerste twee regels geen data bevatten. Die kun je negeren door `skip = 2` aan de opdracht mee te geven.
+
+```{r}
+# tijd in data.frame goed vastleggen
+gw_660721 <- read.csv("data/660721-water_level_filtered-all.csv", skip = 2)
+```
+
+Als je nu vanuit 'Environment' de variable bekijkt, zul je zien dat de eerste kolom naar de naam van de rij is gegaan en de laatste kolom leeg lijkt te zijn.
+![De waterstanden van 660721 verkeerd ingelezen](img/foutmelding_data.png)
+Deze CSV is blijkbaar niet netjes opgemaakt en wanneer je deze in een teksteditor opent, valt het volgende op:
+-   De kolomkoppen zijn als volgt: timestamp,avg_value,min_value,max_value
+-   De regels met data zijn als volgt: "2015-07-28T00:00:00.000+00:00","2.97","2.97","2.97",
+
+![De CSV van 660721 in een tekst editor](img/headers_csv.png)
+
+Omdat de datavelden eindigen met een komma, wordt er verwacht dat er nog een kolom met data is, maar de kolomkoppen hebben dat niet. Dan leest R de data wel in. De makkelijkste oplossing is nu een komma extra te plaatst na de kolomkoppen. Dat ziet er dan zo uit.
+
+![De gecorrigeerde CSV van 660721 in een tekst editor](img/headers_csv_corrected.png)
+Deze slaan we op als een nieuw bestand, zodat we altijd de originele data behouden.
+
+```{r}
+# tijd in data.frame goed vastleggen
+gw_660721 <- read.csv("data/660721-water_level_filtered-all_edit.csv", skip = 2) |> 
+   mutate(timestamp = as.POSIXct(timestamp, tz = "Europe/Amsterdam" )) 
+```
+
+
