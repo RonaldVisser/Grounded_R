@@ -1,0 +1,31 @@
+project:
+  type: book
+
+book:
+  title: "Grounded: Klimaat, Bodem en Data: werken met R"
+  author:   
+    - name: Ronald M. Visser
+      orcid: 0000-0001-6966-1729
+      email: r.m.visser@saxion.nl
+      affiliation: Saxion University of Applied Sciences
+    - name: Marleen van Zon
+      orcid: 0000-0003-3211-2325
+      affiliation: Saxion University of Applied Sciences
+  date: today
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - grounded_wc1.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+  pdf:
+    documentclass: scrreprt
+
+editor: visual

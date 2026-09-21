@@ -261,7 +261,7 @@ Wanneer je een CSV-bestand met alle metingen van het meetpunt download en opent 
 gw_660721 <- read.csv("data/660721-water_level_filtered-all.csv", skip = 2)
 ```
 
-Als je nu vanuit 'Environment' de variable bekijkt, zul je zien dat de eerste kolom naar de naam van de rij is gegaan en de laatste kolom leeg lijkt te zijn.
+Als je nu vanuit 'Environment' de variable bekijkt ([klik hier voor een uitleg](https://docs.posit.co/ide/user/ide/guide/data/data-viewer.html)), zul je zien dat de eerste kolom naar de naam van de rij is gegaan en de laatste kolom leeg lijkt te zijn.
 ![De waterstanden van 660721 verkeerd ingelezen](img/foutmelding_data.png)
 Deze CSV is blijkbaar niet netjes opgemaakt en wanneer je deze in een teksteditor opent, valt het volgende op:
 -   De kolomkoppen zijn als volgt: timestamp,avg_value,min_value,max_value
@@ -272,12 +272,78 @@ Deze CSV is blijkbaar niet netjes opgemaakt en wanneer je deze in een tekstedito
 Omdat de datavelden eindigen met een komma, wordt er verwacht dat er nog een kolom met data is, maar de kolomkoppen hebben dat niet. Dan leest R de data wel in. De makkelijkste oplossing is nu een komma extra te plaatst na de kolomkoppen. Dat ziet er dan zo uit.
 
 ![De gecorrigeerde CSV van 660721 in een tekst editor](img/headers_csv_corrected.png)
-Deze slaan we op als een nieuw bestand, zodat we altijd de originele data behouden.
+Deze slaan we op als een nieuw bestand, zodat we altijd de originele data behouden. Op deze manier kun je de data inlezen zonder problemen. Het nadeel is wel dat er een extra lege kolom wordt aangemaakt, maar die kun je weer weghalen, door de andere kolommen te selecteren Daarnaast is het handig om meteen het timestamp veld als datum/tijd in te lezen.
 
 ```{r}
 # tijd in data.frame goed vastleggen
 gw_660721 <- read.csv("data/660721-water_level_filtered-all_edit.csv", skip = 2) |> 
+  select(timestamp:max_value) |> 
    mutate(timestamp = as.POSIXct(timestamp, tz = "Europe/Amsterdam" )) 
 ```
 
+Dit werkt voor een enkel bestand, maar wanneer je veel grondwaterstanden van Munisense moet inlezen, is dat erg bewerkelijk. Je zou ook de data in kunnen lezen en de regel met koppen kunnen overslaan, om daarna de veldnamen te wijzigen. De velden hebben echter geen goede naam, dus om niet de lege kolom te selecteren, selecteren we eerst kolommen 1 tot en met 4, delen daarna namen uit en veranderen het timestamp veld in een datum/tijd veld.  
 
+```{r}
+# tijd in data.frame goed vastleggen
+gw_660721 <- read.csv("data/660721-water_level_filtered-all.csv", skip = 3) |> 
+  select(1:4) |> 
+  `colnames<-`(c("timestamp","avg_value","min_value","max_value")) |> 
+  mutate(timestamp = as.POSIXct(timestamp, tz = "Europe/Amsterdam" )) 
+```
+
+### En nu zelf:
+
+1.  Zoek de datum waarop de laagste grondwaterstand werd bereikt.
+2.  Op welke data was de grondwaterstand lager dan de gemiddelde grondwaterstand?
+3.  Op welke data was de grondwaterstand lager dan de mediaan van grondwaterstand?
+4.  Maak een lijndiagram met de grondwaterstanden van deze dataset, inclusief trendlijn.
+5.  Maak een staafdiagram met het aantal metingen per jaar.
+6.  Maak een viool-diagram, zoals eerder gemaakt, maar nu met deze dataset.
+
+
+## Opdracht 8: Combineren van datasets
+
+We hebben nu twee datasets met grondwaterstanden van meetpunten die vlak bij elkaar liggen. Laten we deze eens combineren, want op die manier kunnen we voor een langere periode de grondwaterstanden zien. 
+
+Om datasets te combineren is praktisch om dezelde veldnamen te gebruiken. Het commando colnames is handig om namen op te vragen, maar ook om ze toe te kennen. Laten we ze eerst eens bekijken:
+
+```{r}
+# veldnamen
+colnames(B27G0060001)
+colnames(gw_660721)
+```
+
+
+Hoewel`gw_660721` vier kolommen heeft, zijn de data in de laatste drie kolommen identiek. Beide datasets hebben een veld met datum en een veld met een grondwaterstand. Als het goed is, valt het ook op dat de eenheid in de ene dataset in meters is, en in de andere in centimeters. Dat moet ook gelijk gemaakt worden. De volgende stappen moeten worden doorlopen
+-   Uniformeren kolomnamen (gebruik maken van `mutate()` )
+-   Uniformeren eenheid getallen (gebruik maken van `mutate()` )
+-   Bron herleidbaar maken (kolom toevoegen met `mutate()`)
+-   Samenvoegen dataset (`rbind()`, [zie hier voor meer voorbeelden](https://www.r-bloggers.com/2021/06/rbind-in-r-combine-vectors-matrix-or-data-frames-by-rows/))
+
+```{r}
+# omzetten datasets
+grondwaterstanden <- rbind(
+  B27G0060001 |> 
+    mutate(grondwaterstand = meting/100) |> 
+    mutate(bron = "grondwatertools") |> 
+    select(datum, grondwaterstand, bron),
+  gw_660721 |> 
+    mutate(grondwaterstand = avg_value) |> 
+    mutate(datum = timestamp) |> 
+    mutate(bron = "grondwatertools") |> 
+    select(datum, grondwaterstand, bron)
+)
+```
+
+Dit kan dus met één samengestelde opdracht. 
+
+### En nu zelf:
+
+1.  Zoek de datum waarop de laagste grondwaterstand werd bereikt.
+2.  Op welke data was de grondwaterstand lager dan de gemiddelde grondwaterstand?
+3.  Op welke data was de grondwaterstand lager dan de mediaan van grondwaterstand?
+4.  Maak een lijndiagram met de grondwaterstanden van deze dataset, inclusief trendlijn.
+5.  Maak een staafdiagram met het aantal metingen per jaar.
+6.  Maak een viool-diagram, zoals eerder gemaakt, maar nu met deze dataset.
+
+Wat valt op aan de datasets? Welke data mis je nog? 
