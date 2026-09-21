@@ -17,6 +17,9 @@ book:
     - intro.qmd
     - grounded_wc1.qmd
     - references.qmd
+  repo-url: https://github.com/RonaldVisser/Grounded_R
+  repo-actions: [edit, issue]
+
 
 bibliography: references.bib
 
