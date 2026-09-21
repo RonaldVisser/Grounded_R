@@ -7,13 +7,14 @@ bibliography: references.bib
 
 We gaan eerst even leren werken in RStudio. Dit is een gratis en open-source geïntegreerde ontwikkelomgeving (IDE) voor R. Hierin is het belangrijk om met projecten te werken, omdat dit programmeren in R eenvoudiger en sneller maakt. Als je in een project werkt, wordt de werkdirectory automatisch ingesteld; iets wat je handmatig moet doen wanneer je R-scripts buiten projecten om schrijft. De eerste stap om aan een nieuw onderzoek te beginnen, is dus RStudio openen en vervolgens een nieuw project aan te maken.
 
-De stappen die je daarvoor moet zetten, staan heel goed uitgelegd op de website van de makers: <https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects>. Volg die stappen dus voor opdracht 1.
 
-## Opdracht 1:
+## Opdracht 1: Project aanmaken
 
 Maak een nieuw project aan. Deze noemen we nu Grounded_WC1.
 
-## Opdracht 2:
+De stappen die je daarvoor moet zetten, staan heel goed uitgelegd op de website van de makers: <https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects>. Volg die stappen dus voor opdracht 1.
+
+## Opdracht 2: Een eerste bestand aanmaken
 
 Het project bevat nog geen bestanden. Daarom maken we nu een eerste script aan. Dat kan via het menu middels `File > New File > R Script` (of druk op CTRL + SHIFT + N).
 
@@ -25,7 +26,7 @@ Dit is de regel waarmee vrijwel iedere programmeeroefening begint. Je kunt dit b
 
 Je kunt dit script nu als geheel uitvoeren door CTRL + SHIFT + S te typen of op de "Source"-knop te klikken. Als het goed is, krijg je nu de output "Hello World!" in het Console-scherm. Dat is jouw eerste script!
 
-## Opdracht 3
+## Opdracht 3: Start script met analyses
 
 De regel met `hello world` was maar een voorbeeld en die hebben we niet meer nodig. Verwijder dus de tekst. De gaan nu een script maken om een simpele analyse uit te voeren. Daartoe hebben we een aantal libraries nodig. Libraries, ook wel packages genoemd, zijn collecties met kant en klare functies en datasets.
 
@@ -62,6 +63,10 @@ dir.create("data")
 dir.create("export")
 
 ```
+
+::: callout-tip
+Ieder analyse-bestand begint altijd met het aanroepen van de benodigde bibliotheken en eventuele mappen die moeten worden aangemaakt. Hierdoor is de basis altijd goed terug te vinden. Soms kom je tijdens het schrijven van de analyses erachter dat een bepaalde library moet worden aangeroepen. Zorg dan dat die altijd bovenaan wordt ingevoegd.
+:::
 
 ## Opdracht 4: inlezen grondwater data
 
