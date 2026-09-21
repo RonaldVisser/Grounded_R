@@ -212,8 +212,15 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#en-nu-zelf-1" id="toc-en-nu-zelf-1" class="nav-link" data-scroll-target="#en-nu-zelf-1"><span class="header-section-number">3.6.1</span> En nu zelf:</a></li>
   </ul></li>
+  <li><a href="#opdracht-7-combineren-van-data" id="toc-opdracht-7-combineren-van-data" class="nav-link" data-scroll-target="#opdracht-7-combineren-van-data"><span class="header-section-number">3.7</span> Opdracht 7: combineren van data</a>
+  <ul class="collapse">
+  <li><a href="#en-nu-zelf-2" id="toc-en-nu-zelf-2" class="nav-link" data-scroll-target="#en-nu-zelf-2"><span class="header-section-number">3.7.1</span> En nu zelf:</a></li>
   </ul></li>
-  <li><a href="#opdracht-7-combineren-van-data" id="toc-opdracht-7-combineren-van-data" class="nav-link" data-scroll-target="#opdracht-7-combineren-van-data"><span class="header-section-number">4</span> Opdracht 7: combineren van data</a></li>
+  <li><a href="#opdracht-8-combineren-van-datasets" id="toc-opdracht-8-combineren-van-datasets" class="nav-link" data-scroll-target="#opdracht-8-combineren-van-datasets"><span class="header-section-number">3.8</span> Opdracht 8: Combineren van datasets</a>
+  <ul class="collapse">
+  <li><a href="#en-nu-zelf-3" id="toc-en-nu-zelf-3" class="nav-link" data-scroll-target="#en-nu-zelf-3"><span class="header-section-number">3.8.1</span> En nu zelf:</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -590,9 +597,97 @@ Tip
 </ol>
 </section>
 </section>
+<section id="opdracht-7-combineren-van-data" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="opdracht-7-combineren-van-data"><span class="header-section-number">3.7</span> Opdracht 7: combineren van data</h2>
+<p>Het is misschien opgevallen dat de metingen na 2000 ophouden. Voor de meer recente data hebben we blijkbaar een andere bron nodig. Gelukkig kan dat via <a href="https://opendata.munisense.net/nl/" class="uri">https://opendata.munisense.net/nl/</a>. Daar vinden we een punt dat zeer vlakbij het meetpunt uit de voorgaande oefening ligt: meetpunt 660721.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/opendata.munisense.net.png" class="img-fluid figure-img"></p>
+<figcaption>De website van <a href="https://opendata.munisense.net/nl/" class="uri">https://opendata.munisense.net/nl/</a></figcaption>
+</figure>
+</div>
+<p>Wanneer je een CSV-bestand met alle metingen van het meetpunt download en opent in een tekst-editor, zul je zien dat de eerste twee regels geen data bevatten. Die kun je negeren door <code>skip = 2</code> aan de opdracht mee te geven.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tijd in data.frame goed vastleggen</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>gw_660721 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/660721-water_level_filtered-all.csv"</span>, <span class="at">skip =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Als je nu vanuit ‘Environment’ de variable bekijkt (<a href="https://docs.posit.co/ide/user/ide/guide/data/data-viewer.html">klik hier voor een uitleg</a>), zul je zien dat de eerste kolom naar de naam van de rij is gegaan en de laatste kolom leeg lijkt te zijn. <img src="img/foutmelding_data.png" class="img-fluid" alt="De waterstanden van 660721 verkeerd ingelezen"> Deze CSV is blijkbaar niet netjes opgemaakt en wanneer je deze in een teksteditor opent, valt het volgende op: - De kolomkoppen zijn als volgt: timestamp,avg_value,min_value,max_value - De regels met data zijn als volgt: “2015-07-28T00:00:00.000+00:00”,“2.97”,“2.97”,“2.97”,</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/headers_csv.png" class="img-fluid figure-img"></p>
+<figcaption>De CSV van 660721 in een tekst editor</figcaption>
+</figure>
+</div>
+<p>Omdat de datavelden eindigen met een komma, wordt er verwacht dat er nog een kolom met data is, maar de kolomkoppen hebben dat niet. Dan leest R de data wel in. De makkelijkste oplossing is nu een komma extra te plaatst na de kolomkoppen. Dat ziet er dan zo uit.</p>
+<p><img src="img/headers_csv_corrected.png" class="img-fluid" alt="De gecorrigeerde CSV van 660721 in een tekst editor"> Deze slaan we op als een nieuw bestand, zodat we altijd de originele data behouden. Op deze manier kun je de data inlezen zonder problemen. Het nadeel is wel dat er een extra lege kolom wordt aangemaakt, maar die kun je weer weghalen, door de andere kolommen te selecteren Daarnaast is het handig om meteen het timestamp veld als datum/tijd in te lezen.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tijd in data.frame goed vastleggen</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>gw_660721 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/660721-water_level_filtered-all_edit.csv"</span>, <span class="at">skip =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(timestamp<span class="sc">:</span>max_value) <span class="sc">|&gt;</span> </span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">timestamp =</span> <span class="fu">as.POSIXct</span>(timestamp, <span class="at">tz =</span> <span class="st">"Europe/Amsterdam"</span> )) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Dit werkt voor een enkel bestand, maar wanneer je veel grondwaterstanden van Munisense moet inlezen, is dat erg bewerkelijk. Je zou ook de data in kunnen lezen en de regel met koppen kunnen overslaan, om daarna de veldnamen te wijzigen. De velden hebben echter geen goede naam, dus om niet de lege kolom te selecteren, selecteren we eerst kolommen 1 tot en met 4, delen daarna namen uit en veranderen het timestamp veld in een datum/tijd veld.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tijd in data.frame goed vastleggen</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>gw_660721 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/660721-water_level_filtered-all.csv"</span>, <span class="at">skip =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">colnames&lt;-</span><span class="st">`</span>(<span class="fu">c</span>(<span class="st">"timestamp"</span>,<span class="st">"avg_value"</span>,<span class="st">"min_value"</span>,<span class="st">"max_value"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">timestamp =</span> <span class="fu">as.POSIXct</span>(timestamp, <span class="at">tz =</span> <span class="st">"Europe/Amsterdam"</span> )) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="en-nu-zelf-2" class="level3" data-number="3.7.1">
+<h3 data-number="3.7.1" class="anchored" data-anchor-id="en-nu-zelf-2"><span class="header-section-number">3.7.1</span> En nu zelf:</h3>
+<ol type="1">
+<li>Zoek de datum waarop de laagste grondwaterstand werd bereikt.</li>
+<li>Op welke data was de grondwaterstand lager dan de gemiddelde grondwaterstand?</li>
+<li>Op welke data was de grondwaterstand lager dan de mediaan van grondwaterstand?</li>
+<li>Maak een lijndiagram met de grondwaterstanden van deze dataset, inclusief trendlijn.</li>
+<li>Maak een staafdiagram met het aantal metingen per jaar.</li>
+<li>Maak een viool-diagram, zoals eerder gemaakt, maar nu met deze dataset.</li>
+</ol>
 </section>
-<section id="opdracht-7-combineren-van-data" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Opdracht 7: combineren van data</h1>
+</section>
+<section id="opdracht-8-combineren-van-datasets" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="opdracht-8-combineren-van-datasets"><span class="header-section-number">3.8</span> Opdracht 8: Combineren van datasets</h2>
+<p>We hebben nu twee datasets met grondwaterstanden van meetpunten die vlak bij elkaar liggen. Laten we deze eens combineren, want op die manier kunnen we voor een langere periode de grondwaterstanden zien.</p>
+<p>Om datasets te combineren is praktisch om dezelde veldnamen te gebruiken. Het commando colnames is handig om namen op te vragen, maar ook om ze toe te kennen. Laten we ze eerst eens bekijken:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># veldnamen</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(B27G0060001)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "datum"  "meting"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(gw_660721)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "timestamp" "avg_value" "min_value" "max_value"</code></pre>
+</div>
+</div>
+<p>Hoewel<code>gw_660721</code> vier kolommen heeft, zijn de data in de laatste drie kolommen identiek. Beide datasets hebben een veld met datum en een veld met een grondwaterstand. Als het goed is, valt het ook op dat de eenheid in de ene dataset in meters is, en in de andere in centimeters. Dat moet ook gelijk gemaakt worden. De volgende stappen moeten worden doorlopen - Uniformeren kolomnamen (gebruik maken van <code>mutate()</code> ) - Uniformeren eenheid getallen (gebruik maken van <code>mutate()</code> ) - Bron herleidbaar maken (kolom toevoegen met <code>mutate()</code>) - Samenvoegen dataset (<code>rbind()</code>, <a href="https://www.r-bloggers.com/2021/06/rbind-in-r-combine-vectors-matrix-or-data-frames-by-rows/">zie hier voor meer voorbeelden</a>)</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># omzetten datasets</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>grondwaterstanden <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  B27G0060001 <span class="sc">|&gt;</span> </span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">grondwaterstand =</span> meting<span class="sc">/</span><span class="dv">100</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">bron =</span> <span class="st">"grondwatertools"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(datum, grondwaterstand, bron),</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>  gw_660721 <span class="sc">|&gt;</span> </span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">grondwaterstand =</span> avg_value) <span class="sc">|&gt;</span> </span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">datum =</span> timestamp) <span class="sc">|&gt;</span> </span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">bron =</span> <span class="st">"grondwatertools"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(datum, grondwaterstand, bron)</span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Dit kan dus met één samengestelde opdracht.</p>
+<section id="en-nu-zelf-3" class="level3" data-number="3.8.1">
+<h3 data-number="3.8.1" class="anchored" data-anchor-id="en-nu-zelf-3"><span class="header-section-number">3.8.1</span> En nu zelf:</h3>
+<ol type="1">
+<li>Zoek de datum waarop de laagste grondwaterstand werd bereikt.</li>
+<li>Op welke data was de grondwaterstand lager dan de gemiddelde grondwaterstand?</li>
+<li>Op welke data was de grondwaterstand lager dan de mediaan van grondwaterstand?</li>
+<li>Maak een lijndiagram met de grondwaterstanden van deze dataset, inclusief trendlijn.</li>
+<li>Maak een staafdiagram met het aantal metingen per jaar.</li>
+<li>Maak een viool-diagram, zoals eerder gemaakt, maar nu met deze dataset.</li>
+</ol>
+<p>Wat valt op aan de datasets? Welke data mis je nog?</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
@@ -606,6 +701,8 @@ Wickham, Hadley. 2016. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. Spr
 Wickham, Hadley, Romain François, Lionel Henry, Kirill Müller, and Davis Vaughan. 2023. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://dplyr.tidyverse.org">https://dplyr.tidyverse.org</a>.
 </div>
 </div>
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
