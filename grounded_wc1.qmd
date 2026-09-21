@@ -272,6 +272,7 @@ Deze CSV is blijkbaar niet netjes opgemaakt en wanneer je deze in een tekstedito
 Omdat de datavelden eindigen met een komma, wordt er verwacht dat er nog een kolom met data is, maar de kolomkoppen hebben dat niet. Dan leest R de data wel in. De makkelijkste oplossing is nu een komma extra te plaatst na de kolomkoppen. Dat ziet er dan zo uit.
 
 ![De gecorrigeerde CSV van 660721 in een tekst editor](img/headers_csv_corrected.png)
+
 Deze slaan we op als een nieuw bestand, zodat we altijd de originele data behouden. Op deze manier kun je de data inlezen zonder problemen. Het nadeel is wel dat er een extra lege kolom wordt aangemaakt, maar die kun je weer weghalen, door de andere kolommen te selecteren Daarnaast is het handig om meteen het timestamp veld als datum/tijd in te lezen.
 
 ```{r}
