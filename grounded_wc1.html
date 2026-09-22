@@ -155,6 +155,9 @@ div.csl-indent {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Grounded: Klimaat, Bodem en Data: werken met R</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/RonaldVisser/Grounded_R" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -198,31 +201,38 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#projecten-in-rstudio" id="toc-projecten-in-rstudio" class="nav-link active" data-scroll-target="#projecten-in-rstudio"><span class="header-section-number">3</span> Projecten in RStudio</a>
+  <li><a href="#een-eerste-project-in-rstudio" id="toc-een-eerste-project-in-rstudio" class="nav-link active" data-scroll-target="#een-eerste-project-in-rstudio"><span class="header-section-number">3</span> Een eerste project in RStudio</a>
   <ul class="collapse">
   <li><a href="#opdracht-1-project-aanmaken" id="toc-opdracht-1-project-aanmaken" class="nav-link" data-scroll-target="#opdracht-1-project-aanmaken"><span class="header-section-number">3.1</span> Opdracht 1: Project aanmaken</a></li>
   <li><a href="#opdracht-2-een-eerste-bestand-aanmaken" id="toc-opdracht-2-een-eerste-bestand-aanmaken" class="nav-link" data-scroll-target="#opdracht-2-een-eerste-bestand-aanmaken"><span class="header-section-number">3.2</span> Opdracht 2: Een eerste bestand aanmaken</a></li>
-  <li><a href="#opdracht-3-start-script-met-analyses" id="toc-opdracht-3-start-script-met-analyses" class="nav-link" data-scroll-target="#opdracht-3-start-script-met-analyses"><span class="header-section-number">3.3</span> Opdracht 3: Start script met analyses</a></li>
-  <li><a href="#opdracht-4-inlezen-grondwater-data" id="toc-opdracht-4-inlezen-grondwater-data" class="nav-link" data-scroll-target="#opdracht-4-inlezen-grondwater-data"><span class="header-section-number">3.4</span> Opdracht 4: inlezen grondwater data</a></li>
-  <li><a href="#opdracht-5-verkennen-van-de-data" id="toc-opdracht-5-verkennen-van-de-data" class="nav-link" data-scroll-target="#opdracht-5-verkennen-van-de-data"><span class="header-section-number">3.5</span> Opdracht 5: verkennen van de data</a>
-  <ul class="collapse">
-  <li><a href="#en-nu-zelf" id="toc-en-nu-zelf" class="nav-link" data-scroll-target="#en-nu-zelf"><span class="header-section-number">3.5.1</span> En nu zelf:</a></li>
   </ul></li>
-  <li><a href="#opdracht-6-de-eerste-grafieken" id="toc-opdracht-6-de-eerste-grafieken" class="nav-link" data-scroll-target="#opdracht-6-de-eerste-grafieken"><span class="header-section-number">3.6</span> Opdracht 6: de eerste grafieken</a>
+  <li><a href="#de-eerste-analyses" id="toc-de-eerste-analyses" class="nav-link" data-scroll-target="#de-eerste-analyses"><span class="header-section-number">4</span> De eerste analyses</a>
   <ul class="collapse">
-  <li><a href="#en-nu-zelf-1" id="toc-en-nu-zelf-1" class="nav-link" data-scroll-target="#en-nu-zelf-1"><span class="header-section-number">3.6.1</span> En nu zelf:</a></li>
-  </ul></li>
-  <li><a href="#opdracht-7-combineren-van-data" id="toc-opdracht-7-combineren-van-data" class="nav-link" data-scroll-target="#opdracht-7-combineren-van-data"><span class="header-section-number">3.7</span> Opdracht 7: combineren van data</a>
+  <li><a href="#opdracht-3-start-script-met-analyses" id="toc-opdracht-3-start-script-met-analyses" class="nav-link" data-scroll-target="#opdracht-3-start-script-met-analyses"><span class="header-section-number">4.1</span> Opdracht 3: Start script met analyses</a></li>
+  <li><a href="#opdracht-4-inlezen-grondwater-data" id="toc-opdracht-4-inlezen-grondwater-data" class="nav-link" data-scroll-target="#opdracht-4-inlezen-grondwater-data"><span class="header-section-number">4.2</span> Opdracht 4: inlezen grondwater data</a></li>
+  <li><a href="#opdracht-5-verkennen-van-de-data" id="toc-opdracht-5-verkennen-van-de-data" class="nav-link" data-scroll-target="#opdracht-5-verkennen-van-de-data"><span class="header-section-number">4.3</span> Opdracht 5: verkennen van de data</a>
   <ul class="collapse">
-  <li><a href="#en-nu-zelf-2" id="toc-en-nu-zelf-2" class="nav-link" data-scroll-target="#en-nu-zelf-2"><span class="header-section-number">3.7.1</span> En nu zelf:</a></li>
+  <li><a href="#en-nu-zelf" id="toc-en-nu-zelf" class="nav-link" data-scroll-target="#en-nu-zelf"><span class="header-section-number">4.3.1</span> En nu zelf:</a></li>
   </ul></li>
-  <li><a href="#opdracht-8-combineren-van-datasets" id="toc-opdracht-8-combineren-van-datasets" class="nav-link" data-scroll-target="#opdracht-8-combineren-van-datasets"><span class="header-section-number">3.8</span> Opdracht 8: Combineren van datasets</a>
+  <li><a href="#opdracht-6-de-eerste-grafieken" id="toc-opdracht-6-de-eerste-grafieken" class="nav-link" data-scroll-target="#opdracht-6-de-eerste-grafieken"><span class="header-section-number">4.4</span> Opdracht 6: de eerste grafieken</a>
   <ul class="collapse">
-  <li><a href="#en-nu-zelf-3" id="toc-en-nu-zelf-3" class="nav-link" data-scroll-target="#en-nu-zelf-3"><span class="header-section-number">3.8.1</span> En nu zelf:</a></li>
+  <li><a href="#en-nu-zelf-1" id="toc-en-nu-zelf-1" class="nav-link" data-scroll-target="#en-nu-zelf-1"><span class="header-section-number">4.4.1</span> En nu zelf:</a></li>
   </ul></li>
+  <li><a href="#opdracht-7-combineren-van-data" id="toc-opdracht-7-combineren-van-data" class="nav-link" data-scroll-target="#opdracht-7-combineren-van-data"><span class="header-section-number">4.5</span> Opdracht 7: combineren van data</a>
+  <ul class="collapse">
+  <li><a href="#en-nu-zelf-2" id="toc-en-nu-zelf-2" class="nav-link" data-scroll-target="#en-nu-zelf-2"><span class="header-section-number">4.5.1</span> En nu zelf:</a></li>
+  </ul></li>
+  <li><a href="#opdracht-8-combineren-van-datasets" id="toc-opdracht-8-combineren-van-datasets" class="nav-link" data-scroll-target="#opdracht-8-combineren-van-datasets"><span class="header-section-number">4.6</span> Opdracht 8: Combineren van datasets</a>
+  <ul class="collapse">
+  <li><a href="#en-nu-zelf-3" id="toc-en-nu-zelf-3" class="nav-link" data-scroll-target="#en-nu-zelf-3"><span class="header-section-number">4.6.1</span> En nu zelf:</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#huiswerk" id="toc-huiswerk" class="nav-link" data-scroll-target="#huiswerk"><span class="header-section-number">5</span> Huiswerk</a>
+  <ul class="collapse">
+  <li><a href="#opdracht-9-eigen-project" id="toc-opdracht-9-eigen-project" class="nav-link" data-scroll-target="#opdracht-9-eigen-project"><span class="header-section-number">5.1</span> Opdracht 9: Eigen project</a></li>
   </ul></li>
   </ul>
-</nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/RonaldVisser/Grounded_R/edit/main/grounded_wc1.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/RonaldVisser/Grounded_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -246,8 +256,8 @@ div.csl-indent {
 </header>
 
 
-<section id="projecten-in-rstudio" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Projecten in RStudio</h1>
+<section id="een-eerste-project-in-rstudio" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Een eerste project in RStudio</h1>
 <p>We gaan eerst even leren werken in RStudio. Dit is een gratis en open-source geïntegreerde ontwikkelomgeving (IDE) voor R. Hierin is het belangrijk om met projecten te werken, omdat dit programmeren in R eenvoudiger en sneller maakt. Als je in een project werkt, wordt de werkdirectory automatisch ingesteld; iets wat je handmatig moet doen wanneer je R-scripts buiten projecten om schrijft. De eerste stap om aan een nieuw onderzoek te beginnen, is dus RStudio openen en vervolgens een nieuw project aan te maken.</p>
 <section id="opdracht-1-project-aanmaken" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="opdracht-1-project-aanmaken"><span class="header-section-number">3.1</span> Opdracht 1: Project aanmaken</h2>
@@ -262,8 +272,11 @@ div.csl-indent {
 <p>Dit is de regel waarmee vrijwel iedere programmeeroefening begint. Je kunt dit bestand nu opslaan door op de save-knop te drukken of via CTRL + S het op te slaan. Kies een logische bestandsnaam, bijvoorbeeld: “Grounded_WC1.R”</p>
 <p>Je kunt dit script nu als geheel uitvoeren door CTRL + SHIFT + S te typen of op de “Source”-knop te klikken. Als het goed is, krijg je nu de output “Hello World!” in het Console-scherm. Dat is jouw eerste script!</p>
 </section>
-<section id="opdracht-3-start-script-met-analyses" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="opdracht-3-start-script-met-analyses"><span class="header-section-number">3.3</span> Opdracht 3: Start script met analyses</h2>
+</section>
+<section id="de-eerste-analyses" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> De eerste analyses</h1>
+<section id="opdracht-3-start-script-met-analyses" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="opdracht-3-start-script-met-analyses"><span class="header-section-number">4.1</span> Opdracht 3: Start script met analyses</h2>
 <p>De regel met <code>hello world</code> was maar een voorbeeld en die hebben we niet meer nodig. Verwijder dus de tekst. De gaan nu een script maken om een simpele analyse uit te voeren. Daartoe hebben we een aantal libraries nodig. Libraries, ook wel packages genoemd, zijn collecties met kant en klare functies en datasets.</p>
 <p>Kopiëer de onderstaande code naar jouw script uit de voorgaande opdracht.</p>
 <div class="cell">
@@ -324,8 +337,8 @@ Tip
 </div>
 </div>
 </section>
-<section id="opdracht-4-inlezen-grondwater-data" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="opdracht-4-inlezen-grondwater-data"><span class="header-section-number">3.4</span> Opdracht 4: inlezen grondwater data</h2>
+<section id="opdracht-4-inlezen-grondwater-data" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="opdracht-4-inlezen-grondwater-data"><span class="header-section-number">4.2</span> Opdracht 4: inlezen grondwater data</h2>
 <p>Ga nu naar de website <a href="https://www.grondwatertools.nl/gwsinbeeld/" class="uri">https://www.grondwatertools.nl/gwsinbeeld/</a>. Zoek op de kaart naar Deventer en zoek het grondwaterpunt “B27G0060”.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -389,8 +402,8 @@ Tip
 </div>
 </div>
 </section>
-<section id="opdracht-5-verkennen-van-de-data" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="opdracht-5-verkennen-van-de-data"><span class="header-section-number">3.5</span> Opdracht 5: verkennen van de data</h2>
+<section id="opdracht-5-verkennen-van-de-data" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="opdracht-5-verkennen-van-de-data"><span class="header-section-number">4.3</span> Opdracht 5: verkennen van de data</h2>
 <p>Nu de data ingelezen is, kunnen we een aantal zaken te weten komen, zoals de gemiddelde grondwaterstand en bijbehorende standaarddeviatie, en bijvoorbeeld de maximale en minimale standen. Daartoe willen we eigenlijk alleen in de kolom <code>meting</code>van ons data.frame kijken. Dat doe je door de variable te noemen met daaraan vast een $-teken en dan de naam van de kolom: <code>B27G0060001$meting</code></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># minimale grondwaterstand</span></span>
@@ -453,8 +466,8 @@ Tip
 <pre><code>[1] "1994-01-31"</code></pre>
 </div>
 </div>
-<section id="en-nu-zelf" class="level3" data-number="3.5.1">
-<h3 data-number="3.5.1" class="anchored" data-anchor-id="en-nu-zelf"><span class="header-section-number">3.5.1</span> En nu zelf:</h3>
+<section id="en-nu-zelf" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="en-nu-zelf"><span class="header-section-number">4.3.1</span> En nu zelf:</h3>
 <ol type="1">
 <li>Zoek de datum waarop de laagste grondwaterstand werd bereikt.</li>
 <li>Op welke data was de grondwaterstand lager dan de gemiddelde grondwaterstand?</li>
@@ -462,8 +475,8 @@ Tip
 </ol>
 </section>
 </section>
-<section id="opdracht-6-de-eerste-grafieken" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="opdracht-6-de-eerste-grafieken"><span class="header-section-number">3.6</span> Opdracht 6: de eerste grafieken</h2>
+<section id="opdracht-6-de-eerste-grafieken" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="opdracht-6-de-eerste-grafieken"><span class="header-section-number">4.4</span> Opdracht 6: de eerste grafieken</h2>
 <p>We gaan nu een eerste grafiek maken met deze gegevens. Hiertoe maken we gebruik van de ggplot2 library. Daarnaast gaan we leren te werken met de syntax die hoort by de zogenaamde tidyverse. Dat doen we door gebruik te maken van een pipe (<code>|&gt;</code>). Met dit sympool stuur je als het ware gegevens door. In het onderstaande voorbeeld nemen we de dataset als uitgangspunt en dan pipen we die naar de ggplot-functie, waarbij we aangeven dat de datum op de x-as komt te staan en de metingen op de y-as.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># een grafiek met punten</span></span>
@@ -601,8 +614,8 @@ Tip
 <p>Wil je meer weten over het visualiseren van tijdreeksen, staan hier wat handige tips: <a href="https://r-graph-gallery.com/279-plotting-time-series-with-ggplot2.html" class="uri">https://r-graph-gallery.com/279-plotting-time-series-with-ggplot2.html</a></p>
 </div>
 </div>
-<section id="en-nu-zelf-1" class="level3" data-number="3.6.1">
-<h3 data-number="3.6.1" class="anchored" data-anchor-id="en-nu-zelf-1"><span class="header-section-number">3.6.1</span> En nu zelf:</h3>
+<section id="en-nu-zelf-1" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="en-nu-zelf-1"><span class="header-section-number">4.4.1</span> En nu zelf:</h3>
 <ol type="1">
 <li>Maak de bovenstaande grafieken (boxplot en staafdiagram van aantal metingen per jaar) ook maken voor de maanden. Op die manier kun je zien of er in bepaalde maanden vaker de grondwaterstanden vaker gemeten is.</li>
 <li>Het is ook mogelijk om een trend te visualiseren in <code>ggplot()</code>. Hiertoe gebruik je <code>geom_smooth()</code>. Maak een grafiek met de boxplots per jaar, met daaraan toegevoegd de trendlijn</li>
@@ -610,8 +623,8 @@ Tip
 </ol>
 </section>
 </section>
-<section id="opdracht-7-combineren-van-data" class="level2" data-number="3.7">
-<h2 data-number="3.7" class="anchored" data-anchor-id="opdracht-7-combineren-van-data"><span class="header-section-number">3.7</span> Opdracht 7: combineren van data</h2>
+<section id="opdracht-7-combineren-van-data" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="opdracht-7-combineren-van-data"><span class="header-section-number">4.5</span> Opdracht 7: combineren van data</h2>
 <p>Het is misschien opgevallen dat de metingen na 2000 ophouden. Voor de meer recente data hebben we blijkbaar een andere bron nodig. Gelukkig kan dat via <a href="https://opendata.munisense.net/nl/" class="uri">https://opendata.munisense.net/nl/</a>. Daar vinden we een punt dat zeer vlakbij het meetpunt uit de voorgaande oefening ligt: meetpunt 660721.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -653,8 +666,8 @@ Tip
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">colnames&lt;-</span><span class="st">`</span>(<span class="fu">c</span>(<span class="st">"timestamp"</span>,<span class="st">"avg_value"</span>,<span class="st">"min_value"</span>,<span class="st">"max_value"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">timestamp =</span> <span class="fu">as.POSIXct</span>(timestamp, <span class="at">tz =</span> <span class="st">"Europe/Amsterdam"</span> )) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="en-nu-zelf-2" class="level3" data-number="3.7.1">
-<h3 data-number="3.7.1" class="anchored" data-anchor-id="en-nu-zelf-2"><span class="header-section-number">3.7.1</span> En nu zelf:</h3>
+<section id="en-nu-zelf-2" class="level3" data-number="4.5.1">
+<h3 data-number="4.5.1" class="anchored" data-anchor-id="en-nu-zelf-2"><span class="header-section-number">4.5.1</span> En nu zelf:</h3>
 <ol type="1">
 <li>Zoek de datum waarop de laagste grondwaterstand werd bereikt.</li>
 <li>Op welke data was de grondwaterstand lager dan de gemiddelde grondwaterstand?</li>
@@ -665,8 +678,8 @@ Tip
 </ol>
 </section>
 </section>
-<section id="opdracht-8-combineren-van-datasets" class="level2" data-number="3.8">
-<h2 data-number="3.8" class="anchored" data-anchor-id="opdracht-8-combineren-van-datasets"><span class="header-section-number">3.8</span> Opdracht 8: Combineren van datasets</h2>
+<section id="opdracht-8-combineren-van-datasets" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="opdracht-8-combineren-van-datasets"><span class="header-section-number">4.6</span> Opdracht 8: Combineren van datasets</h2>
 <p>We hebben nu twee datasets met grondwaterstanden van meetpunten die vlak bij elkaar liggen. Laten we deze eens combineren, want op die manier kunnen we voor een langere periode de grondwaterstanden zien.</p>
 <p>Om datasets te combineren is praktisch om dezelde veldnamen te gebruiken. Het commando colnames is handig om namen op te vragen, maar ook om ze toe te kennen. Laten we ze eerst eens bekijken:</p>
 <div class="cell">
@@ -696,8 +709,8 @@ Tip
 <span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Dit kan dus met één samengestelde opdracht.</p>
-<section id="en-nu-zelf-3" class="level3" data-number="3.8.1">
-<h3 data-number="3.8.1" class="anchored" data-anchor-id="en-nu-zelf-3"><span class="header-section-number">3.8.1</span> En nu zelf:</h3>
+<section id="en-nu-zelf-3" class="level3" data-number="4.6.1">
+<h3 data-number="4.6.1" class="anchored" data-anchor-id="en-nu-zelf-3"><span class="header-section-number">4.6.1</span> En nu zelf:</h3>
 <ol type="1">
 <li>Zoek de datum waarop de laagste grondwaterstand werd bereikt.</li>
 <li>Op welke data was de grondwaterstand lager dan de gemiddelde grondwaterstand?</li>
@@ -707,6 +720,14 @@ Tip
 <li>Maak een viool-diagram, zoals eerder gemaakt, maar nu met deze dataset.</li>
 </ol>
 <p>Wat valt op aan de datasets? Welke data mis je nog?</p>
+</section>
+</section>
+</section>
+<section id="huiswerk" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Huiswerk</h1>
+<section id="opdracht-9-eigen-project" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="opdracht-9-eigen-project"><span class="header-section-number">5.1</span> Opdracht 9: Eigen project</h2>
+<p>Ga op zoek naar de verschillende meetpunten van grondwaterstanden in jouw onderzoeksgebied. Probeer inzicht te krijgen in het verloop van deze grondwaterstanden. Welke rol speelt grondwater in de lokale problemen in jullie onderzoeksgebied?</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
@@ -720,7 +741,6 @@ Wickham, Hadley. 2016. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. Spr
 Wickham, Hadley, Romain François, Lionel Henry, Kirill Müller, and Davis Vaughan. 2023. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://dplyr.tidyverse.org">https://dplyr.tidyverse.org</a>.
 </div>
 </div>
-</section>
 </section>
 </section>
 
@@ -1142,4 +1162,4 @@ Wickham, Hadley, Romain François, Lionel Henry, Kirill Müller, and Davis Vaugh
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/RonaldVisser/Grounded_R/edit/main/grounded_wc1.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/RonaldVisser/Grounded_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
