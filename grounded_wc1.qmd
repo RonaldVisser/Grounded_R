@@ -3,7 +3,7 @@ title: "Werkcollege 1"
 bibliography: references.bib
 ---
 
-# Projecten in RStudio
+# Een eerste project in RStudio
 
 We gaan eerst even leren werken in RStudio. Dit is een gratis en open-source geïntegreerde ontwikkelomgeving (IDE) voor R. Hierin is het belangrijk om met projecten te werken, omdat dit programmeren in R eenvoudiger en sneller maakt. Als je in een project werkt, wordt de werkdirectory automatisch ingesteld; iets wat je handmatig moet doen wanneer je R-scripts buiten projecten om schrijft. De eerste stap om aan een nieuw onderzoek te beginnen, is dus RStudio openen en vervolgens een nieuw project aan te maken.
 
@@ -25,6 +25,8 @@ In het lege script moeten jullie nu de eerste regel code schrijven
 Dit is de regel waarmee vrijwel iedere programmeeroefening begint. Je kunt dit bestand nu opslaan door op de save-knop te drukken of via CTRL + S het op te slaan. Kies een logische bestandsnaam, bijvoorbeeld: "Grounded_WC1.R"
 
 Je kunt dit script nu als geheel uitvoeren door CTRL + SHIFT + S te typen of op de "Source"-knop te klikken. Als het goed is, krijg je nu de output "Hello World!" in het Console-scherm. Dat is jouw eerste script!
+
+# De eerste analyses
 
 ## Opdracht 3: Start script met analyses
 
@@ -353,3 +355,9 @@ Dit kan dus met één samengestelde opdracht.
 6.  Maak een viool-diagram, zoals eerder gemaakt, maar nu met deze dataset.
 
 Wat valt op aan de datasets? Welke data mis je nog? 
+
+# Huiswerk
+
+## Opdracht 9: Eigen project
+
+Ga op zoek naar de verschillende meetpunten van grondwaterstanden in jouw onderzoeksgebied. Probeer inzicht te krijgen in het verloop van deze grondwaterstanden. Welke rol speelt grondwater in de lokale problemen in jullie onderzoeksgebied?  
