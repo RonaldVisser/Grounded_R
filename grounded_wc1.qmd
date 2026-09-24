@@ -97,7 +97,7 @@ Wanneer we nu willen weten welke data is ingelezen, kun je de data snel bekijken
 head(B27G0060001)
 ```
 
-Dat ziet er niet goed uit. Als je het csv-bestand opent in een tekst-editor, zoals Notepad/Kladblok of Notepad++ (<https://notepad-plus-plus.org/>{target="_blank"}) zul je zien dat de data bestaat uit teskt en dat de ; de verschillende velden scheidt (bijvoorbeeld: `1991-12-02;292`). 
+Dat ziet er niet goed uit. Als je het csv-bestand opent in een tekst-editor, zoals Notepad/Kladblok of Notepad++ (<https://notepad-plus-plus.org/>{target="_blank"}) zul je zien dat de data bestaat uit tekst en dat de ; de verschillende velden scheidt (bijvoorbeeld: `1991-12-02;292`). 
 
 De functie `read.csv()` gaat ervanuit dat een csv uit "comma-separated values" bestaat (<https://nl.wikipedia.org/wiki/Kommagescheiden_bestand>{target="_blank"}), vandaar ook de bestandsnaam. De leveranciers van de waterstanden gebruiken echter een puntkomma (;). Gelukkig is de functie flexibel en kun je dit als optie invoeren bij de functie. Als je de code aanpast naar de onderstaande tekst, zal de data wel goed ingelezen worden.
 
