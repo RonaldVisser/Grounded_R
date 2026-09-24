@@ -19,7 +19,7 @@ book:
     - references.qmd
   repo-url: https://github.com/RonaldVisser/Grounded_R
   repo-actions: [edit, issue]
-
+  license: CC-BY-4.0
 
 bibliography: references.bib
 

@@ -1,18 +1,18 @@
 ---
-title: "Werkcollege 1"
+title: "Werkcollege 1: de eerste stappen met R en Rstudio"
 bibliography: references.bib
 ---
 
-# Een eerste project in RStudio
+## Inleiding
 
 We gaan eerst even leren werken in RStudio. Dit is een gratis en open-source geïntegreerde ontwikkelomgeving (IDE) voor R. Hierin is het belangrijk om met projecten te werken, omdat dit programmeren in R eenvoudiger en sneller maakt. Als je in een project werkt, wordt de werkdirectory automatisch ingesteld; iets wat je handmatig moet doen wanneer je R-scripts buiten projecten om schrijft. De eerste stap om aan een nieuw onderzoek te beginnen, is dus RStudio openen en vervolgens een nieuw project aan te maken.
 
 
 ## Opdracht 1: Project aanmaken
 
-Maak een nieuw project aan. Deze noemen we nu Grounded_WC1.
+Maak een nieuw project aan in een nieuwe map. Deze noemen we nu Grounded_WC1.
 
-De stappen die je daarvoor moet zetten, staan heel goed uitgelegd op de website van de makers: <https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects>. Volg die stappen dus voor opdracht 1.
+De stappen die je daarvoor moet zetten, staan heel goed uitgelegd op de website van de makers: <https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects>{target="_blank"}. Volg die stappen dus voor opdracht 1.
 
 ## Opdracht 2: Een eerste bestand aanmaken
 
@@ -26,11 +26,13 @@ Dit is de regel waarmee vrijwel iedere programmeeroefening begint. Je kunt dit b
 
 Je kunt dit script nu als geheel uitvoeren door CTRL + SHIFT + S te typen of op de "Source"-knop te klikken. Als het goed is, krijg je nu de output "Hello World!" in het Console-scherm. Dat is jouw eerste script!
 
-# De eerste analyses
-
 ## Opdracht 3: Start script met analyses
 
 De regel met `hello world` was maar een voorbeeld en die hebben we niet meer nodig. Verwijder dus de tekst. De gaan nu een script maken om een simpele analyse uit te voeren. Daartoe hebben we een aantal libraries nodig. Libraries, ook wel packages genoemd, zijn collecties met kant en klare functies en datasets.
+
+::: callout-tip
+Ieder analyse-bestand begint altijd met het aanroepen van de benodigde bibliotheken en eventuele mappen die moeten worden aangemaakt. Hierdoor is de basis altijd goed terug te vinden. Soms kom je tijdens het schrijven van de analyses erachter dat een bepaalde library moet worden aangeroepen. Zorg dan dat die altijd bovenaan wordt ingevoegd.
+:::
 
 Kopiëer de onderstaande code naar jouw script uit de voorgaande opdracht.
 
@@ -49,36 +51,32 @@ options(digits=3)
 Het hashtag symbool ( \# ) gebruik je voor commentaren in de code. Dit wordt nooit uitgevoerd, maar vergroot de leesbaarheid van een script.
 :::
 
-De kans is groot dat de eerste keer de libraries dplyr [@wickham2023], ggplot [@wickham2016] en lubridate [@grolemund2011] nog niet geïnstalleerd zijn. De installatie van packages staat uitgelegd op bijvoorbeeld deze locatie: <https://libguides.chapman.edu/R/packages>. Volg deze stappen indien nodig.
+De kans is groot dat de eerste keer de libraries dplyr [@wickham2023], ggplot [@wickham2016] en lubridate [@grolemund2011] nog niet geïnstalleerd zijn. De installatie van packages staat uitgelegd op bijvoorbeeld deze locatie: <https://libguides.chapman.edu/R/packages>{target="_blank"}. Volg deze stappen indien nodig.
 
 Naast het laden van libraries, stellen we ook de formatting van getallen in, door het aantal decimalen op 3 te zetten en getallen non-scientific te zetten.
 
-::: callout-tip
-Hierna zullen we niet meer zeggen dat je code moet kopiëren. We gaan ervan uit dat je dat doet. COde is herkenbaar aan het eigen `lettertype`.
-:::
 
-We gaan nu eerst twee mappen aanmaken. De eerste `data` is voor het opslaan van de ruwe data. Daarnaast een map waarin we grafieken en dergelijke exporteren, die noemen we `export`
+We gaan nu eerst twee mappen aanmaken. De eerste `data` is voor het opslaan van de ruwe data. Daarnaast een map waarin we grafieken en dergelijke exporteren, die noemen we `export`.
 
 ```{r, warning=FALSE, message=FALSE}
 # create folders
 dir.create("data")
 dir.create("export")
-
 ```
 
 ::: callout-tip
-Ieder analyse-bestand begint altijd met het aanroepen van de benodigde bibliotheken en eventuele mappen die moeten worden aangemaakt. Hierdoor is de basis altijd goed terug te vinden. Soms kom je tijdens het schrijven van de analyses erachter dat een bepaalde library moet worden aangeroepen. Zorg dan dat die altijd bovenaan wordt ingevoegd.
+Hierna zullen we niet meer zeggen dat je code moet kopiëren. We gaan ervan uit dat je dat doet. Code is herkenbaar aan het eigen `lettertype`.
 :::
 
-## Opdracht 4: inlezen grondwater data
+## Opdracht 4: Inlezen grondwater data
 
-Ga nu naar de website <https://www.grondwatertools.nl/gwsinbeeld/>. Zoek op de kaart naar Deventer en zoek het grondwaterpunt "B27G0060".
+Ga nu naar de website <https://www.grondwatertools.nl/gwsinbeeld/>{target="_blank"}. Zoek op de kaart naar Deventer en zoek het grondwaterpunt "B27G0060".
 
-![De website \<https://www.grondwatertools.nl/gwsinbeeld/\> met daarin het grondwaterpunt B27G0318.](img/grondwaterstandinbeeld.png)
+![De website \<https://www.grondwatertools.nl/gwsinbeeld/\>{target="_blank"} met daarin het grondwaterpunt B27G0318.](img/grondwaterstandinbeeld.png)
 
 Als je nu op de link met "Toon" erop klikt, krijg je het onderstaande beeld. Bij het hamburger-menu kun je de optie "Download CSV" kiezen.
 
-![De grondwaterstanden van meetpunt B27G0060 op website \<https://www.grondwatertools.nl/gwsinbeeld/\>.](img/grondwaterstandinbeeld_BG27G0060.png)
+![De grondwaterstanden van meetpunt B27G0060 op website \<https://www.grondwatertools.nl/gwsinbeeld/\>{target="_blank"}.](img/grondwaterstandinbeeld_BG27G0060.png)
 
 Download dit bestand en sla het op in de `data` map van het project.
 
@@ -90,7 +88,7 @@ B27G0060001 <- read.csv("data/B27G0060001_meetreeks.csv")
 ```
 
 ::: callout-tip
-Een variabele is een container waarin data wordt opgeslagen (<https://www.w3schools.com/r/r_variables.asp>). Deze data een enkel getal of tekst zijn, maar ook een hele tabel, matrix of een ander soort object. Het is heel flexibel en de toekenning bepaalt het type. De naamgeving van een variabele is aan regels gebonden, zie: <https://www.w3schools.com/r/r_variables_name.asp>. Let op! Een variabele kun je makkelijk overschrijven door deze opnieuw te definiëren.
+Een variabele is een container waarin data wordt opgeslagen (<https://www.w3schools.com/r/r_variables.asp>{target="_blank"}). Deze data een enkel getal of tekst zijn, maar ook een hele tabel, matrix of een ander soort object. Het is heel flexibel en de toekenning bepaalt het type. De naamgeving van een variabele is aan regels gebonden, zie: <https://www.w3schools.com/r/r_variables_name.asp>{target="_blank"}. Let op! Een variabele kun je makkelijk overschrijven door deze opnieuw te definiëren.
 :::
 
 Wanneer we nu willen weten welke data is ingelezen, kun je de data snel bekijken met de functie `head()`
@@ -99,15 +97,19 @@ Wanneer we nu willen weten welke data is ingelezen, kun je de data snel bekijken
 head(B27G0060001)
 ```
 
-Dat ziet er niet goed uit. Als je het csv-bestand opent in een tekst-editor, zoals Notepad/Kladblok of Notepad++ (<https://notepad-plus-plus.org/>) zul je zien dat de data er zo uitziet.
+Dat ziet er niet goed uit. Als je het csv-bestand opent in een tekst-editor, zoals Notepad/Kladblok of Notepad++ (<https://notepad-plus-plus.org/>{target="_blank"}) zul je zien dat de data bestaat uit teskt en dat de ; de verschillende velden scheidt (bijvoorbeeld: `1991-12-02;292`). 
 
-De functie `read.csv()` gaat ervanuit dat een csv uit "comma-separated values" bestaat (<https://nl.wikipedia.org/wiki/Kommagescheiden_bestand>), vandaar ook de bestandsnaam. De leveranciers van de waterstanden gebruiken echter een puntkomma (;). Gelukkig is de functie flexibel en kun je dit als optie invoeren bij de functie. Als je de code aanpast naar de onderstaande tekst, zal de data wel goed ingelezen worden.
+De functie `read.csv()` gaat ervanuit dat een csv uit "comma-separated values" bestaat (<https://nl.wikipedia.org/wiki/Kommagescheiden_bestand>{target="_blank"}), vandaar ook de bestandsnaam. De leveranciers van de waterstanden gebruiken echter een puntkomma (;). Gelukkig is de functie flexibel en kun je dit als optie invoeren bij de functie. Als je de code aanpast naar de onderstaande tekst, zal de data wel goed ingelezen worden.
 
 ```{r, warning=FALSE, message=FALSE}
 # read data
 B27G0060001 <- read.csv("data/B27G0060001_meetreeks.csv", sep = ";")
 head(B27G0060001)
 ```
+
+::: callout-tip
+We hebben eerder aangegeven dat je met `source` het hele script kunt uitvoeren. Dat is soms wat omslachtig en wil je alleen een enkele regel uitvoeren. Dat kan door een regel te selecteren en dan op `ctrl+enter` of via menu `Code > Run Selected Line(s)` te kiezen. Dan voer je alleen een enkele regel (of meerdere geselecteerde regels) uit.
+:::
 
 ## Opdracht 5: verkennen van de data
 
@@ -131,7 +133,7 @@ De waardes worden niet toegewezen aan variabelen, maar we krijgen wel een beeld 
 summary(B27G0060001)
 ```
 
-Wanneer we echter willen weten wanneer de hoogste grondwaterstand bereikt werd, kan dat door het maximum te zoeken en dat te bepalen bij welke datum dit hoort. In R nemen we dan onze variable B27G0060001 en zoeken dan in de kolom die datum heet. De vierkante haken \[\] gebruiken we om aan te geven waar we gaan zoeken. Zo kun je zoeken naar de eerste waarde van een kolom of lijst door bijvoorbeeld `B27G0060001$datum[1]` in te geven. We moeten daarom weten wat de positie is van de hoogste grondwaterstand in het data.frame. Daarom moeten we in de metingen zoeken naar het maximum. De code `B27G0060001$meting==max(B27G0060001$meting)` geeft daan dat we willen weten wanneer de `meting` gelijk is aan het maximum. Let op dat je de '==' gebruikt, want dat geeft aan dat je naar *is gelijk aan* wil zoeken. Bij een enkele = maak je alles gelijk aan. De code `B27G0060001$meting==max(B27G0060001$meting)` geeft een waar-onwaar matrix. Door met deze matrix te zoeken in de kolom met datum vinden we de datum waarop de hoogste grondwaterstand waar is.
+Wanneer we echter willen weten wanneer de hoogste grondwaterstand bereikt werd, dan kan dat door het maximum te zoeken en vervolgens te bepalen bij welke datum dit hoort. In R nemen we dan onze variable B27G0060001 en zoeken dan in de kolom die datum heet. De vierkante haken \[\] gebruiken we om aan te geven waar we gaan zoeken. Zo kun je zoeken naar de eerste waarde van een kolom of lijst door bijvoorbeeld `B27G0060001$datum[1]` in te geven. We moeten daarom weten wat de positie is van de hoogste grondwaterstand in het data.frame. Daarom moeten we in de metingen zoeken naar het maximum. De code `B27G0060001$meting==max(B27G0060001$meting)` geeft aan dat we willen weten wanneer de `meting` gelijk is aan het maximum. Let op dat je de '==' gebruikt, want dat geeft aan dat je naar *is gelijk aan* wil zoeken. Bij een enkele = maak je alles gelijk aan. De code `B27G0060001$meting==max(B27G0060001$meting)` geeft een waar-onwaar matrix. Door met deze matrix te zoeken in de kolom met datum vinden we de datum waarop de hoogste grondwaterstand waar is.
 
 ```{r, warning=FALSE, message=FALSE}
 # de eerste datum in de lijst
@@ -146,7 +148,7 @@ B27G0060001$datum[maximum_stand_waar]
 B27G0060001$datum[B27G0060001$meting==max(B27G0060001$meting)]
 ```
 
-### En nu zelf:
+## En nu zelf:
 
 1.  Zoek de datum waarop de laagste grondwaterstand werd bereikt.
 2.  Op welke data was de grondwaterstand lager dan de gemiddelde grondwaterstand?
@@ -224,7 +226,7 @@ B27G0060001 |>
   labs(x="Grondwaterstand (NAP)")
 ```
 
-Het valt nu op dat er veel variatie zit in de jaren, maar ook dat in sommige jaren de waardes wat dichter bij elkaar liggen. Dit is moeilijk uit een boxplot te halen, maar een [*violin plot*](https://en.wikipedia.org/wiki/Violin_plot) geeft soms meer inzicht in hoe de waardes verdeeld zijn.
+Het valt nu op dat er veel variatie zit in de jaren, maar ook dat in sommige jaren de waardes wat dichter bij elkaar liggen. Dit is moeilijk uit een boxplot te halen, maar een [*violin plot*](https://en.wikipedia.org/wiki/Violin_plot){target="_blank"} geeft soms meer inzicht in hoe de waardes verdeeld zijn.
 
 ```{r, warning=FALSE, message=FALSE}
 # een violin plot per jaar
@@ -246,20 +248,20 @@ B27G0060001 |>
 ```
 
 ::: callout-tip
-Wil je meer weten over het visualiseren van tijdreeksen, staan hier wat handige tips: <https://r-graph-gallery.com/279-plotting-time-series-with-ggplot2.html>
+Wil je meer weten over het visualiseren van tijdreeksen, staan hier wat handige tips: <https://r-graph-gallery.com/279-plotting-time-series-with-ggplot2.html>{target="_blank"}
 :::
 
-### En nu zelf:
+## En nu zelf:
 
 1.  Maak de bovenstaande grafieken (boxplot en staafdiagram van aantal metingen per jaar) ook maken voor de maanden. Op die manier kun je zien of er in bepaalde maanden vaker de grondwaterstanden vaker gemeten is.
 2.  Het is ook mogelijk om een trend te visualiseren in `ggplot()`. Hiertoe gebruik je `geom_smooth()`. Maak een grafiek met de boxplots per jaar, met daaraan toegevoegd de trendlijn
-3.  Maak een boxplot, waarbij je laat zien wat de grondwaterstanden zijn voor ieder van de vier seizoenen. (<https://www.knmi.nl/over-het-knmi/nieuws/vier-of-zes-seizoenen>)
+3.  Maak een boxplot, waarbij je laat zien wat de grondwaterstanden zijn voor ieder van de vier seizoenen. (<https://www.knmi.nl/over-het-knmi/nieuws/vier-of-zes-seizoenen>{target="_blank"})
 
 ## Opdracht 7: combineren van data
 
-Het is misschien opgevallen dat de metingen na 2000 ophouden. Voor de meer recente data hebben we blijkbaar een andere bron nodig. Gelukkig kan dat via <https://opendata.munisense.net/nl/>. Daar vinden we een punt dat zeer vlakbij het meetpunt uit de voorgaande oefening ligt: meetpunt 660721.
+Het is misschien opgevallen dat de metingen na 2000 ophouden. Voor de meer recente data hebben we blijkbaar een andere bron nodig. Gelukkig kan dat via <https://opendata.munisense.net/nl/>{target="_blank"}. Daar vinden we een punt dat zeer vlakbij het meetpunt uit de voorgaande oefening ligt: meetpunt 660721.
 
-![De website van <https://opendata.munisense.net/nl/> ](img/opendata.munisense.net.png)
+![De website van <https://opendata.munisense.net/nl/>{target="_blank"} ](img/opendata.munisense.net.png)
 
 Wanneer je een CSV-bestand met alle metingen van het meetpunt download en opent in een tekst-editor, zul je zien dat de eerste twee regels geen data bevatten. Die kun je negeren door `skip = 2` aan de opdracht mee te geven.
 
@@ -268,15 +270,14 @@ Wanneer je een CSV-bestand met alle metingen van het meetpunt download en opent 
 gw_660721 <- read.csv("data/660721-water_level_filtered-all.csv", skip = 2)
 ```
 
-Als je nu vanuit 'Environment' de variable bekijkt ([klik hier voor een uitleg](https://docs.posit.co/ide/user/ide/guide/data/data-viewer.html)), zul je zien dat de eerste kolom naar de naam van de rij is gegaan en de laatste kolom leeg lijkt te zijn.
+Als je nu vanuit 'Environment' de variable bekijkt ([klik hier voor een uitleg](https://docs.posit.co/ide/user/ide/guide/data/data-viewer.html){target="_blank"}), zul je zien dat de eerste kolom naar de naam van de rij is gegaan en de laatste kolom leeg lijkt te zijn.
 ![De waterstanden van 660721 verkeerd ingelezen](img/foutmelding_data.png)
 Deze CSV is blijkbaar niet netjes opgemaakt en wanneer je deze in een teksteditor opent, valt het volgende op:
 -   De kolomkoppen zijn als volgt: timestamp,avg_value,min_value,max_value
 -   De regels met data zijn als volgt: "2015-07-28T00:00:00.000+00:00","2.97","2.97","2.97",
 
 ![De CSV van 660721 in een tekst editor](img/headers_csv.png)
-
-Omdat de datavelden eindigen met een komma, wordt er verwacht dat er nog een kolom met data is, maar de kolomkoppen hebben dat niet. Dan leest R de data wel in. De makkelijkste oplossing is nu een komma extra te plaatst na de kolomkoppen. Dat ziet er dan zo uit.
+Omdat de datavelden eindigen met een komma, wordt er verwacht dat er nog een kolom met data is, maar de kolomkoppen hebben dat niet. Dan leest R de data wel in. De makkelijkste oplossing is nu een komma extra te plaatsen na de kolomkoppen. Dat ziet er dan zo uit.
 
 ![De gecorrigeerde CSV van 660721 in een tekst editor](img/headers_csv_corrected.png)
 
@@ -299,7 +300,13 @@ gw_660721 <- read.csv("data/660721-water_level_filtered-all.csv", skip = 3) |>
   mutate(timestamp = as.POSIXct(timestamp, tz = "Europe/Amsterdam" )) 
 ```
 
-### En nu zelf:
+:::callout-tip
+
+De Wet Basisregistratie Ondergrond maakt het mogelijk dat alle publieke gegevens van de Nederlandse ondergrond toegankelijk via één loket. Dat is het BROloket en daar vinden we ook al deze data: <https://www.broloket.nl/ondergrondgegevens>{target="_blank"}
+
+:::
+
+## En nu zelf:
 
 1.  Zoek de datum waarop de laagste grondwaterstand werd bereikt.
 2.  Op welke data was de grondwaterstand lager dan de gemiddelde grondwaterstand?
@@ -326,7 +333,7 @@ Hoewel`gw_660721` vier kolommen heeft, zijn de data in de laatste drie kolommen 
 -   Uniformeren kolomnamen (gebruik maken van `mutate()` )
 -   Uniformeren eenheid getallen (gebruik maken van `mutate()` )
 -   Bron herleidbaar maken (kolom toevoegen met `mutate()`)
--   Samenvoegen dataset (`rbind()`, [zie hier voor meer voorbeelden](https://www.r-bloggers.com/2021/06/rbind-in-r-combine-vectors-matrix-or-data-frames-by-rows/))
+-   Samenvoegen dataset (`rbind()`, [zie hier voor meer voorbeelden](https://www.r-bloggers.com/2021/06/rbind-in-r-combine-vectors-matrix-or-data-frames-by-rows/){target="_blank"})
 
 ```{r}
 # omzetten datasets
@@ -345,7 +352,7 @@ grondwaterstanden <- rbind(
 
 Dit kan dus met één samengestelde opdracht. 
 
-### En nu zelf:
+## En nu zelf:
 
 1.  Zoek de datum waarop de laagste grondwaterstand werd bereikt.
 2.  Op welke data was de grondwaterstand lager dan de gemiddelde grondwaterstand?
@@ -356,8 +363,6 @@ Dit kan dus met één samengestelde opdracht.
 
 Wat valt op aan de datasets? Welke data mis je nog? 
 
-# Huiswerk
-
-## Opdracht 9: Eigen project
+## Opdracht 9: Eigen project (huiswerk)
 
 Ga op zoek naar de verschillende meetpunten van grondwaterstanden in jouw onderzoeksgebied. Probeer inzicht te krijgen in het verloop van deze grondwaterstanden. Welke rol speelt grondwater in de lokale problemen in jullie onderzoeksgebied?  
