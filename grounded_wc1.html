@@ -367,7 +367,7 @@ Tip
 6 1992-05-27;324</code></pre>
 </div>
 </div>
-<p>Dat ziet er niet goed uit. Als je het csv-bestand opent in een tekst-editor, zoals Notepad/Kladblok of Notepad++ (<a href="https://notepad-plus-plus.org/" target="_blank">https://notepad-plus-plus.org/</a>) zul je zien dat de data bestaat uit teskt en dat de ; de verschillende velden scheidt (bijvoorbeeld: <code>1991-12-02;292</code>).</p>
+<p>Dat ziet er niet goed uit. Als je het csv-bestand opent in een tekst-editor, zoals Notepad/Kladblok of Notepad++ (<a href="https://notepad-plus-plus.org/" target="_blank">https://notepad-plus-plus.org/</a>) zul je zien dat de data bestaat uit tekst en dat de ; de verschillende velden scheidt (bijvoorbeeld: <code>1991-12-02;292</code>).</p>
 <p>De functie <code>read.csv()</code> gaat ervanuit dat een csv uit “comma-separated values” bestaat (<a href="https://nl.wikipedia.org/wiki/Kommagescheiden_bestand" target="_blank">https://nl.wikipedia.org/wiki/Kommagescheiden_bestand</a>), vandaar ook de bestandsnaam. De leveranciers van de waterstanden gebruiken echter een puntkomma (;). Gelukkig is de functie flexibel en kun je dit als optie invoeren bij de functie. Als je de code aanpast naar de onderstaande tekst, zal de data wel goed ingelezen worden.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read data</span></span>
