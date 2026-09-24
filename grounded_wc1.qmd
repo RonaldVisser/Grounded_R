@@ -12,7 +12,7 @@ We gaan eerst even leren werken in RStudio. Dit is een gratis en open-source ge√
 
 Maak een nieuw project aan in een nieuwe map. Deze noemen we nu Grounded_WC1.
 
-De stappen die je daarvoor moet zetten, staan heel goed uitgelegd op de website van de makers: <https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects>{target="_blank"}. Volg die stappen dus voor opdracht 1.
+De stappen die je daarvoor moet zetten, staan heel goed uitgelegd op de website van de makers: <https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects>{target="_blank"}. Volg die stappen dus voor deze opdracht.
 
 ## Een eerste bestand aanmaken
 
