@@ -277,6 +277,7 @@ Deze CSV is blijkbaar niet netjes opgemaakt en wanneer je deze in een tekstedito
 -   De regels met data zijn als volgt: "2015-07-28T00:00:00.000+00:00","2.97","2.97","2.97",
 
 ![De CSV van 660721 in een tekst editor](img/headers_csv.png)
+
 Omdat de datavelden eindigen met een komma, wordt er verwacht dat er nog een kolom met data is, maar de kolomkoppen hebben dat niet. Dan leest R de data wel in. De makkelijkste oplossing is nu een komma extra te plaatsen na de kolomkoppen. Dat ziet er dan zo uit.
 
 ![De gecorrigeerde CSV van 660721 in een tekst editor](img/headers_csv_corrected.png)
