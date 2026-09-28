@@ -17,9 +17,12 @@ book:
     - intro.qmd
     - grounded_wc1.qmd
     - references.qmd
+  sidebar:
+    logo: "img/logo-grounded_2.jpg"
   repo-url: https://github.com/RonaldVisser/Grounded_R
   repo-actions: [edit, issue]
-  license: CC-BY-4.0
+  license: "CC-BY-4.0"
+  
 
 bibliography: references.bib
 
