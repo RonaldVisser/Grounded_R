@@ -22,7 +22,7 @@ book:
   repo-url: https://github.com/RonaldVisser/Grounded_R
   repo-actions: [edit, issue]
   license: "CC-BY-4.0"
-  
+  favicon: "img/logo-grounded_32x32.jpg"
 
 bibliography: references.bib
 
