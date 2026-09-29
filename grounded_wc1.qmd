@@ -14,6 +14,16 @@ Maak een nieuw project aan in een nieuwe map. Deze noemen we nu Grounded_WC1.
 
 De stappen die je daarvoor moet zetten, staan heel goed uitgelegd op de website van de makers: <https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects>{target="_blank"}. Volg die stappen dus voor deze opdracht.
 
+::: callout-tip
+Er zijn diverse instellingen in RStudio. Deze zijn te vinden via `Menu > Tools > Global Options...` 
+Zorg dat je in ieder geval het automatisch opslaan van de workspace uitzet, omdat je dan iedere analyse met een verse omgeving begint. Dit voorkomt fouten.
+
+![Instellingen van RStudio](img/setting.png)
+
+:::
+
+
+
 ## Een eerste bestand aanmaken
 
 Het project bevat nog geen bestanden. Daarom maken we nu een eerste script aan. Dat kan via het menu middels `File > New File > R Script` (of druk op CTRL + SHIFT + N).
@@ -80,6 +90,11 @@ Als je nu op de link met "Toon" erop klikt, krijg je het onderstaande beeld. Bij
 
 Download dit bestand en sla het op in de `data` map van het project.
 
+::: callout-tip
+We hebben eerder aangegeven dat je met `source` het hele script kunt uitvoeren. Dat is soms wat omslachtig en wil je alleen een enkele regel uitvoeren. Dat kan door een regel te selecteren en dan op `ctrl+enter` of via menu `Code > Run Selected Line(s)` te kiezen. Dan voer je alleen een enkele regel (of meerdere geselecteerde regels) uit.
+:::
+
+
 De volgende stap is het inladen van dit databestand in de R-omgeving. Dat doen we met de functie `read.csv()` zoals in de onderstaande code is aangegeven. Je ziet ook een pijl staan: `<-`. Dat is de toewijzing aan een variabele. Deze regel betekent letterlijk: maak de variable `B27G0060001`aan door middel van het uitvoeren van de functie `read.csv("data/B27G0060001_meetreeks.csv")`. Dit is standaard-syntax in R.
 
 ```{r, warning=FALSE, message=FALSE}
@@ -107,9 +122,6 @@ B27G0060001 <- read.csv("data/B27G0060001_meetreeks.csv", sep = ";")
 head(B27G0060001)
 ```
 
-::: callout-tip
-We hebben eerder aangegeven dat je met `source` het hele script kunt uitvoeren. Dat is soms wat omslachtig en wil je alleen een enkele regel uitvoeren. Dat kan door een regel te selecteren en dan op `ctrl+enter` of via menu `Code > Run Selected Line(s)` te kiezen. Dan voer je alleen een enkele regel (of meerdere geselecteerde regels) uit.
-:::
 
 ## Verkennen van de data
 
