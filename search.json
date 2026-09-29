@@ -34,7 +34,7 @@
     "href": "grounded_wc1.html#project-aanmaken",
     "title": "2  Werkcollege 1: de eerste stappen met R en Rstudio",
     "section": "2.2 Project aanmaken",
-    "text": "2.2 Project aanmaken\nMaak een nieuw project aan in een nieuwe map. Deze noemen we nu Grounded_WC1.\nDe stappen die je daarvoor moet zetten, staan heel goed uitgelegd op de website van de makers: https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects. Volg die stappen dus voor deze opdracht.",
+    "text": "2.2 Project aanmaken\nMaak een nieuw project aan in een nieuwe map. Deze noemen we nu Grounded_WC1.\nDe stappen die je daarvoor moet zetten, staan heel goed uitgelegd op de website van de makers: https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects. Volg die stappen dus voor deze opdracht.\n\n\n\n\n\n\nTip\n\n\n\nEr zijn diverse instellingen in RStudio. Deze zijn te vinden via Menu &gt; Tools &gt; Global Options... Zorg dat je in ieder geval het automatisch opslaan van de workspace uitzet, omdat je dan iedere analyse met een verse omgeving begint. Dit voorkomt fouten.\n\n\n\nInstellingen van RStudio",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Werkcollege 1: de eerste stappen met R en Rstudio</span>"
     ]
