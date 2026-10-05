@@ -358,7 +358,7 @@ grondwaterstanden <- rbind(
   gw_660721 |> 
     mutate(grondwaterstand = avg_value) |> 
     mutate(datum = timestamp) |> 
-    mutate(bron = "grondwatertools") |> 
+    mutate(bron = "munisense") |> 
     select(datum, grondwaterstand, bron)
 )
 ```
