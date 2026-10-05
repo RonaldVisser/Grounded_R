@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>3&nbsp; Werkcollege 2: werken met weer- en klimaatdata – Grounded: Klimaat, Bodem en Data: werken met R</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./references.html" rel="next">
+<link href="./grounded_wc1.html" rel="prev">
+<link href="./img/logo-grounded_32x32.jpg" rel="icon" type="image/jpeg">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-9e3e5b9121e68b3f077afb32f2c64d95.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./grounded_wc2.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Werkcollege 2: werken met weer- en klimaatdata</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./img/logo-grounded_2.jpg" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./img/logo-grounded_2.jpg" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Grounded: Klimaat, Bodem en Data: werken met R</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/RonaldVisser/Grounded_R" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Voorwoord</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introductie</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./grounded_wc1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Werkcollege 1: de eerste stappen met R en Rstudio</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./grounded_wc2.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Werkcollege 2: werken met weer- en klimaatdata</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#inleiding" id="toc-inleiding" class="nav-link active" data-scroll-target="#inleiding"><span class="header-section-number">3.1</span> Inleiding</a></li>
+  <li><a href="#weerdata" id="toc-weerdata" class="nav-link" data-scroll-target="#weerdata"><span class="header-section-number">3.2</span> Weerdata</a>
+  <ul class="collapse">
+  <li><a href="#project-en-script-aanmaken" id="toc-project-en-script-aanmaken" class="nav-link" data-scroll-target="#project-en-script-aanmaken"><span class="header-section-number">3.2.1</span> Project en script aanmaken</a></li>
+  <li><a href="#data-inlezen-en-de-eerste-verkenning-van-de-data" id="toc-data-inlezen-en-de-eerste-verkenning-van-de-data" class="nav-link" data-scroll-target="#data-inlezen-en-de-eerste-verkenning-van-de-data"><span class="header-section-number">3.2.2</span> Data inlezen en de eerste verkenning van de data</a></li>
+  </ul></li>
+  <li><a href="#grafieken-maken-voor-de-neerslag-per-dag" id="toc-grafieken-maken-voor-de-neerslag-per-dag" class="nav-link" data-scroll-target="#grafieken-maken-voor-de-neerslag-per-dag"><span class="header-section-number">3.3</span> Grafieken maken voor de neerslag per dag</a>
+  <ul class="collapse">
+  <li><a href="#weer-zelf-aan-de-slag" id="toc-weer-zelf-aan-de-slag" class="nav-link" data-scroll-target="#weer-zelf-aan-de-slag"><span class="header-section-number">3.3.1</span> Weer zelf aan de slag</a></li>
+  </ul></li>
+  <li><a href="#temperatuur" id="toc-temperatuur" class="nav-link" data-scroll-target="#temperatuur"><span class="header-section-number">3.4</span> Temperatuur</a>
+  <ul class="collapse">
+  <li><a href="#nu-even-zelf-nadenken" id="toc-nu-even-zelf-nadenken" class="nav-link" data-scroll-target="#nu-even-zelf-nadenken"><span class="header-section-number">3.4.1</span> Nu even zelf nadenken</a></li>
+  <li><a href="#zelf-aan-de-slag" id="toc-zelf-aan-de-slag" class="nav-link" data-scroll-target="#zelf-aan-de-slag"><span class="header-section-number">3.4.2</span> Zelf aan de slag</a></li>
+  </ul></li>
+  <li><a href="#grafieken-combineren" id="toc-grafieken-combineren" class="nav-link" data-scroll-target="#grafieken-combineren"><span class="header-section-number">3.5</span> Grafieken combineren</a>
+  <ul class="collapse">
+  <li><a href="#zelf-aan-de-slag-1" id="toc-zelf-aan-de-slag-1" class="nav-link" data-scroll-target="#zelf-aan-de-slag-1"><span class="header-section-number">3.5.1</span> Zelf aan de slag</a></li>
+  </ul></li>
+  <li><a href="#klimaat-meerjarige-data" id="toc-klimaat-meerjarige-data" class="nav-link" data-scroll-target="#klimaat-meerjarige-data"><span class="header-section-number">3.6</span> Klimaat: meerjarige data</a>
+  <ul class="collapse">
+  <li><a href="#zelf-doen" id="toc-zelf-doen" class="nav-link" data-scroll-target="#zelf-doen"><span class="header-section-number">3.6.1</span> Zelf doen:</a></li>
+  <li><a href="#en-dan-weer-zelf-aan-de-slag" id="toc-en-dan-weer-zelf-aan-de-slag" class="nav-link" data-scroll-target="#en-dan-weer-zelf-aan-de-slag"><span class="header-section-number">3.6.2</span> En dan weer zelf aan de slag</a></li>
+  </ul></li>
+  <li><a href="#historische-klimaatdata-toevoegen" id="toc-historische-klimaatdata-toevoegen" class="nav-link" data-scroll-target="#historische-klimaatdata-toevoegen"><span class="header-section-number">3.7</span> Historische klimaatdata toevoegen</a>
+  <ul class="collapse">
+  <li><a href="#en-nu-zelf-weer-aan-de-slag." id="toc-en-nu-zelf-weer-aan-de-slag." class="nav-link" data-scroll-target="#en-nu-zelf-weer-aan-de-slag."><span class="header-section-number">3.7.1</span> En nu zelf weer aan de slag.</a></li>
+  </ul></li>
+  <li><a href="#project" id="toc-project" class="nav-link" data-scroll-target="#project"><span class="header-section-number">3.8</span> Project</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/RonaldVisser/Grounded_R/edit/main/grounded_wc2.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/RonaldVisser/Grounded_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Werkcollege 2: werken met weer- en klimaatdata</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="inleiding" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="inleiding"><span class="header-section-number">3.1</span> Inleiding</h2>
+<p>In het vorige werkcollege hebben jullie gewerkt met data van grondwaterstanden uit verschillende bronnen. Daarnaast hebben jullie diverse grafieken gemaakt. Deze week gaan we aan de slag met gegevens over het weer en klimaat.</p>
+</section>
+<section id="weerdata" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="weerdata"><span class="header-section-number">3.2</span> Weerdata</h2>
+<p>Data over het weer wordt door het KNMI als open data aangeboden. Dit is tegenwoordig via <a href="https://dataplatform.knmi.nl/" class="uri">https://dataplatform.knmi.nl/</a> toegankelijk. De data is toegankelijk via een <a href="https://nl.wikipedia.org/wiki/Application_programming_interface">API</a>. Dit maakt de toegank voor een deel makkelijker, maar er is wel wat code voor nodig. Gelukkig biedt het KNMI ook data aan als eenvoudige downloads: <a href="https://www.knmi.nl/nederland-nu/klimatologie/uurgegevens" class="uri">https://www.knmi.nl/nederland-nu/klimatologie/uurgegevens</a>. Hierover wordt veel uitgelegd op de website.</p>
+<p>We gaan werken met de data uit een bepaald gebied. Laten we eens naar het zuiden van het land kijken en in Limburg op zoek gaan naar data. Op <a href="https://www.knmi.nl/kennis-en-datacentrum/uitleg/automatische-weerstations" class="uri">https://www.knmi.nl/kennis-en-datacentrum/uitleg/automatische-weerstations</a> staat een kaartje met de locaties van alle weerstations. In Limburg is een een weerstation bij Maastricht Airport (380).</p>
+<p>Ga naar <a href="https://www.knmi.nl/nederland-nu/klimatologie/uurgegevens" class="uri">https://www.knmi.nl/nederland-nu/klimatologie/uurgegevens</a> en download de meest recente data uit Maastricht (2021-2030). Dit bestand zal <code>uurgeg_380_2021-2030.txt</code> heten.</p>
+<section id="project-en-script-aanmaken" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="project-en-script-aanmaken"><span class="header-section-number">3.2.1</span> Project en script aanmaken</h3>
+<p>Je hebt vorig week geleerd een project aan te maken. Maak een nieuw project aan in een nieuwe map. Deze noemen we nu Grounded_WC2.</p>
+<p>Maak ook een eerste script aan en geef deze een logische en passend naam. We beginnen weer met het aanroepen van de juiste bibliotheken. Dat zijn deze keer wederom dplyr <span class="citation" data-cites="wickham2023">(<a href="references.html#ref-wickham2023" role="doc-biblioref">Wickham, François, et al. 2023</a>)</span>, ggplot <span class="citation" data-cites="wickham2016">(<a href="references.html#ref-wickham2016" role="doc-biblioref">Wickham 2016</a>)</span> en lubridate <span class="citation" data-cites="grolemund2011">(<a href="references.html#ref-grolemund2011" role="doc-biblioref">Grolemund and Wickham 2011</a>)</span>. Daarnaast gaan we nieuwe libraries gebruiken: tidyr <span class="citation" data-cites="wickham2023a">(<a href="references.html#ref-wickham2023a" role="doc-biblioref">Wickham, Vaughan, et al. 2023</a>)</span>, ggpubr <span class="citation" data-cites="kassambara2023">(<a href="references.html#ref-kassambara2023" role="doc-biblioref">Kassambara 2023</a>)</span> en readr <span class="citation" data-cites="wickham2026">(<a href="references.html#ref-wickham2026" role="doc-biblioref">Wickham et al. 2026</a>)</span>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># force non scientific formatting of numbers</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">digits=</span><span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="data-inlezen-en-de-eerste-verkenning-van-de-data" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="data-inlezen-en-de-eerste-verkenning-van-de-data"><span class="header-section-number">3.2.2</span> Data inlezen en de eerste verkenning van de data</h3>
+<p>Bekijk de data die je gedownload hebt in een tekst-editor. Je zult zien dat de data bestaat uit een hoop uitleg. Dat is heel fijn, omdat je meteen weet wat de data beteken.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/knmi_data_uurgegevens.png" class="img-fluid figure-img"></p>
+<figcaption>Data van het KNMI (uurgegevens)</figcaption>
+</figure>
+</div>
+<p>Om de data in te kunnen lezen, plaatsen we het bestand in de <code>data</code>-map. Deze had je uiteraard al aangemaakt op basis van de les van vorige week (dat kan met code of middels bestandsbeheer).</p>
+<p>Als we de data in proberen te lezen, zal dit niet helemaal goed gaan met het onderstaande commando.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>maastricht_2021_2030 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/uurgeg_380_2021-2030.txt"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Je zult het bestand dus even goed moeten bekijken. Dan zul je erachter komen dat je een aantal regels moet overslaan bij het importeren, namelijk 31 regels.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>maastricht_2021_2030 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/uurgeg_380_2021-2030.txt"</span>, <span class="at">skip =</span> <span class="dv">31</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Laten we de data even bekijken. Hieronder staan de eerste 10 regels uit de ingelezen tabel.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 9%">
+<col style="width: 3%">
+<col style="width: 4%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 5%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 6%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">X..STN</th>
+<th style="text-align: right;">YYYYMMDD</th>
+<th style="text-align: right;">HH</th>
+<th style="text-align: right;">DD</th>
+<th style="text-align: right;">FH</th>
+<th style="text-align: right;">FF</th>
+<th style="text-align: right;">FX</th>
+<th style="text-align: right;">T</th>
+<th style="text-align: right;">T10N</th>
+<th style="text-align: right;">TD</th>
+<th style="text-align: right;">SQ</th>
+<th style="text-align: right;">Q</th>
+<th style="text-align: right;">DR</th>
+<th style="text-align: right;">RH</th>
+<th style="text-align: right;">P</th>
+<th style="text-align: right;">VV</th>
+<th style="text-align: right;">N</th>
+<th style="text-align: right;">U</th>
+<th style="text-align: left;">WW</th>
+<th style="text-align: left;">IX</th>
+<th style="text-align: right;">M</th>
+<th style="text-align: right;">R</th>
+<th style="text-align: right;">S</th>
+<th style="text-align: right;">O</th>
+<th style="text-align: right;">Y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">380</td>
+<td style="text-align: right;">20210101</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">310</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10061</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">96</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">380</td>
+<td style="text-align: right;">20210101</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">320</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10067</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">96</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">380</td>
+<td style="text-align: right;">20210101</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">340</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-1</td>
+<td style="text-align: right;">10070</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">94</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">380</td>
+<td style="text-align: right;">20210101</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">250</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10071</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">95</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">380</td>
+<td style="text-align: right;">20210101</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">230</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-1</td>
+<td style="text-align: right;">10073</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">96</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">380</td>
+<td style="text-align: right;">20210101</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">240</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-1</td>
+<td style="text-align: right;">10077</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">95</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">380</td>
+<td style="text-align: right;">20210101</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">220</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-1</td>
+<td style="text-align: right;">10084</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">96</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">380</td>
+<td style="text-align: right;">20210101</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">210</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10087</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">95</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">380</td>
+<td style="text-align: right;">20210101</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">220</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10092</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">94</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">380</td>
+<td style="text-align: right;">20210101</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">220</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10096</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">92</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Het valt op dat in de kolom RH negatieve waarde voorkomen. In het ingelezen tekstbestand lezen we:</p>
+<p><code>RH        = Uursom van de neerslag (in 0.1 mm) (-1 voor &lt;0.05 mm)</code></p>
+<p>Dat betekent dus dat negatieve waardes wel neerslag betekenen, maar minimaal. Wanneer we dit plotten in een boxplot zie je meteen dat er veel lage waardes zijn.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>maastricht_2021_2030 <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>(RH<span class="sc">/</span><span class="dv">10</span>))) <span class="sc">+</span> <span class="fu">geom_boxplot</span>() <span class="sc">+</span>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Neerslag (mm/dag)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="grounded_wc2_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In bovenstaande code is de neerslag getransformeerd naar millimeter per dag, omdat de meeste mensen deze eenheid herkenbaarder zullen vinden dan een neerslag in 0.1 mm.</p>
+<section id="nu-zelf" class="level4" data-number="3.2.2.1">
+<h4 data-number="3.2.2.1" class="anchored" data-anchor-id="nu-zelf"><span class="header-section-number">3.2.2.1</span> Nu zelf</h4>
+<ol type="1">
+<li>Wat is de gemiddelde neerslag per uur? Welke standaarddeviatie hoort daarbij?</li>
+<li>Wat is de modale neerslag per uur?</li>
+<li>Maak een histogram van de neerslag per dag (in mm). Zorg daarbij dat de assen ook een duidelijke benaming krijgen.</li>
+</ol>
+<p>Laten we even alle negatieve waardes omzetten naar een waarde die niets betekent, oftewel <code>NA</code>. Dat betekent dat we geen waardes hebben voor die momenten. Hiertoe zoeken we alle plekken op waar een -1 staat en vervangen dat voor <code>NA</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>maastricht_2021_2030[maastricht_2021_2030<span class="sc">==-</span><span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="nu-zelf-1" class="level4" data-number="3.2.2.2">
+<h4 data-number="3.2.2.2" class="anchored" data-anchor-id="nu-zelf-1"><span class="header-section-number">3.2.2.2</span> Nu zelf</h4>
+<p>Als je NA in de data hebt, moet je vaak <code>, na.rm = TRUE</code> aan een functie toevoegen. Kijk maar eens in de help van <code>mean()</code>.</p>
+<ol type="1">
+<li>Wat is de gemiddelde neerslag per uur? Welke standaarddeviatie hoort daarbij?</li>
+<li>Wat is de modale neerslag per uur?</li>
+<li>Op welke dag viel de meeste neerlag per uur?</li>
+<li>Maak een nieuwe boxplot van de neerslag. Zie je een verschil met die we eerder hebben gemaakt zonder de -1 te verwijderen?</li>
+<li>Maak een nieuw histogram van de neerslag per dag (in mm). Zorg daarbij dat de assen ook een duidelijke benaming krijgen.</li>
+</ol>
+</section>
+</section>
+</section>
+<section id="grafieken-maken-voor-de-neerslag-per-dag" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="grafieken-maken-voor-de-neerslag-per-dag"><span class="header-section-number">3.3</span> Grafieken maken voor de neerslag per dag</h2>
+<p>De neerslag per uur geeft al veel informatie, maar soms wil je eerder weten wat de hoeveelheden neerslag per dag was. Dat kan vrij eenvoudig door data te groeperen en de som per groep te berekenen. Laten we dat eens doen.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>maastricht_2021_2030 <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(YYYYMMDD) <span class="sc">|&gt;</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">neerslagsom =</span> <span class="fu">sum</span>((RH<span class="sc">/</span><span class="dv">10</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>YYYYMMDD, <span class="at">y =</span> neerslagsom)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"Identity"</span>) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Datum"</span>, <span class="at">y =</span> <span class="st">"Neerslag per dag (mm)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="grounded_wc2_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Er val nu meteen op dat er een aantal pieken is, en dat die vrij ver uit elkaar liggen. Dat komt doordat het datatype van het <code>YYYYMMDD</code>-veld een integer is. Dit kun je opzoeken in R door de functie <code>class()</code> te gebruiken.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(maastricht_2021_2030<span class="sc">$</span>YYYYMMDD)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "integer"</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Wil je weten wat voor gegevenstype een variabele of een bepaalde kolom in een data.frame heeft, gebruik je de functie <code>class()</code>.</p>
+</div>
+</div>
+<p>In het vorige werkcollege heb je al gewerkt met de functies uit de <code>lubridate</code>-package <span class="citation" data-cites="grolemund2011">(<a href="references.html#ref-grolemund2011" role="doc-biblioref">Grolemund and Wickham 2011</a>)</span>. Aangezien het veld bestaat uit jaar-maand-dag, kunnen we de functie <code>ymd()</code> daarvoor gebruiken en een nieuw veld aan te maken dat we datum noemen.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>maastricht_2021_2030 <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">datum =</span> <span class="fu">ymd</span>(YYYYMMDD)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(datum) <span class="sc">|&gt;</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">neerslagsom =</span> <span class="fu">sum</span>(RH<span class="sc">/</span><span class="dv">10</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>datum, <span class="at">y =</span> neerslagsom)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"Identity"</span>) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Datum"</span>, <span class="at">y =</span> <span class="st">"Neerslag per dag (mm)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="grounded_wc2_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Op deze manier wordt de grafiek veel leesbaarder en lijkt ook de variatie beter inzichtelijk te zien. In het bovenstaande voorbeeld hebben we de datum aangepast bij het maken van de grafiek. Dat is voor een enkele keer handig, maar eigenlijk wat omslachtig. Dit betekent namelijk dat je dit bij iedere bewerking opnieuw moet bepalen, terwijl het handiger is om dit soort dingen in één keer aan te passen, zodat je daarna kunt werken met de bewerkte gegevens. Dat moet je dus eigenlijk meteen doen bij het inlezen van jouw bestand, zodat je daarna alle bewerkingen kunt doen, zonder steeds opnieuw de data te corrigeren. Dat geldt natuurlijk ook voor de neerslag in mm, dus dat passen we ook aan.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>maastricht_2021_2030 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/uurgeg_380_2021-2030.txt"</span>, <span class="at">skip =</span> <span class="dv">31</span>, <span class="at">colClasses =</span> <span class="st">"integer"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="sc">~</span><span class="fu">na_if</span>(., <span class="sc">-</span><span class="dv">1</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">datum =</span> <span class="fu">ymd</span>(YYYYMMDD)) <span class="sc">|&gt;</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">neerslag_mm =</span> RH<span class="sc">/</span><span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>In de bovenstaande code lezen we eerst de CSV in door <code>maastricht_2021_2030 &lt;- read.csv("data/uurgeg_380_2021-2030.txt", skip = 31, colClasses = "integer")</code>. In dit voorbeeld zorgen we dat alle kolommen als een integer worden ingelezen, omdat deze data als zodanig wordt aangeleverd door het KNMI. Daarna vervangen we alle -1 waardes voor een <code>NA</code> door <code>mutate_all(~na_if(., -1))</code>. De laatst twee regels voegen een datum-veld en veld met de neerslag in millimeter.</p>
+<p>Terug naar de grafiek. Als het goed is, is het je opgevallen dat er een enorme piek ergens voor 2022 zichtbaar is. Laten we eens inzoomen op de grafiek in de periode voor 2022, door alleen de data voor 2022 te selecteren:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>maastricht_2021_2030 <span class="sc">|&gt;</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(datum) <span class="sc">|&gt;</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(YYYYMMDD<span class="sc">&lt;</span><span class="dv">20220000</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">neerslagsom =</span> <span class="fu">sum</span>(neerslag_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>datum, <span class="at">y =</span> neerslagsom)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"Identity"</span>) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Datum"</span>, <span class="at">y =</span> <span class="st">"Neerslag per dag (mm)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="grounded_wc2_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We zien nu dat dit ergens in juni moet zijn geweest, dus laten we eens wat meer in detail kijken naar de maand juni van 2022. Dat kan met de onderstaande code</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>maastricht_2021_2030 <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(datum) <span class="sc">|&gt;</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(YYYYMMDD <span class="sc">&gt;=</span> <span class="dv">20210600</span> <span class="sc">&amp;</span> YYYYMMDD <span class="sc">&lt;=</span> <span class="dv">20210700</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">neerslagsom =</span> <span class="fu">sum</span>(neerslag_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>datum, <span class="at">y =</span> neerslagsom)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"Identity"</span>) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Datum"</span>, <span class="at">y =</span> <span class="st">"Neerslag per dag (mm)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="grounded_wc2_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="weer-zelf-aan-de-slag" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="weer-zelf-aan-de-slag"><span class="header-section-number">3.3.1</span> Weer zelf aan de slag</h3>
+<ol type="1">
+<li>Op welke datum valt deze piek van regen?</li>
+<li>Maak een staafdiagram van de regen op deze dag, waarbij je per uur aangeeft hoe veel regen er gevallen is. Hoe laat valt de piek?</li>
+<li>Wat kun je op het nieuws vinden over deze neerslagpiek? Welke gevolgen had dit voor mensen?</li>
+<li>Welke grondwaterpunten zijn er in de buurt van de meetlocatie te vinden?</li>
+<li>Maak voor deze meetlocatie een grafiek van de grondwaterstanden. Is er een relatie te vinden tussen neerslag en grondwaterstanden?</li>
+</ol>
+</section>
+</section>
+<section id="temperatuur" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="temperatuur"><span class="header-section-number">3.4</span> Temperatuur</h2>
+<p>We hebben nu een aantal grafieken gemaakt voor de neerslag, maar neerslag is niet de enige weerfactor die een bepaalde rol speelt. Er zijn er vele, zoals wind, intensiteit van de zon. Voor het overzicht groeperen we ze hieronder. Ieder heeft andere invloed op de leefomgeving. Dat betreffen:</p>
+<ul>
+<li>Wind (-richting, -snelheid, -stoot)</li>
+<li>Temperatuur (meting, gemiddeld, dauwpunt)</li>
+<li>Zon (duur, straling)</li>
+<li>Neerslag (duur per uur, hoeveelheid)</li>
+<li>Luchtdruk</li>
+<li>Zicht</li>
+<li>Bewolking</li>
+<li>Weersomstandigheden, zoals mist, sneeuw en onweer</li>
+</ul>
+<p>Het voert te ver om al deze gegevens te gebruiken in dit werkcollege, maar je zou ze voor verschillende zaken kunnen gebruiken, zoals het bepalen van hittestress of onderzoeken welke invloed mist heeft op de hoeveelheid ongelukken. Dergelijke zaken kun je koppelen aan de inrichting van de leefomgeving en zo tot andere inzichten komen.</p>
+<p>Laten we eens verder gaan met de temperatuur in beeld te brengen.</p>
+<p><code>T         = Temperatuur (in 0.1 graden Celsius) op 1.50 m hoogte tijdens de waarneming / Temperature (in 0.1 degrees Celsius) at 1.50 m at the time of observation</code></p>
+<p>Ook deze moeten we dus weer aanpassen naar een eenheden in graden en hadden we aan het begin bij importeren natuurlijk moeten bepalen</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>maastricht_2021_2030 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/uurgeg_380_2021-2030.txt"</span>, <span class="at">skip =</span> <span class="dv">31</span>, <span class="at">colClasses =</span> <span class="st">"integer"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="sc">~</span><span class="fu">na_if</span>(., <span class="sc">-</span><span class="dv">1</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">datum =</span> <span class="fu">ymd</span>(YYYYMMDD)) <span class="sc">|&gt;</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">neerslag_mm =</span> RH<span class="sc">/</span><span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">temperatuur_graden =</span> T<span class="sc">/</span><span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Laten we eerst eens kijken hoe de gemiddelde temperatuur voor iedere dag in het jaar verloopt.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>maastricht_2021_2030 <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(datum) <span class="sc">|&gt;</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">gem_temp =</span> <span class="fu">mean</span>(temperatuur_graden, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>datum, <span class="at">y =</span> gem_temp)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Datum"</span>, <span class="at">y =</span> <span class="st">"Gemiddelde temperatuur (graden)"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="grounded_wc2_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Hierin is duidelijk de trend te zien van de seizoenen. De bovenstaande grafiek geeft echter alleen de gemiddelde temperatuur, maar niet de laagste of de hoogste per dag. Dat is allemaal samen te berekenen en in een grafiek te zetten. Hiertoe moeten we eerst de data samenvatten (<code>summarise</code>) en de gemiddeldes, minima en maxima per dag te berekenen. Dan worden er aparte kolommen aangemaakt per waarde. Als we dit echter in een grafiek willen zetten en de kleuren automatisch willen maken, moeten we de kolommen omzetten naar het zogenaamde <em>longer</em>-formaat. Het commando <code>pivot_longer(cols = c(gem_temp, max_temp, min_temp))</code> zorgt ervoor dat de kolom datum behouden blijft en dat in het veld <code>name</code> de titel van de kolommen gem_temp, max_temp en min_tempkomt te staan. In het veld <code>value</code> komen de waardes te staan. Je hebt in feite de verschillende gegevens getransporteerd en naar een ander formaat omgezet:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>maastricht_2021_2030 <span class="sc">|&gt;</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(datum) <span class="sc">|&gt;</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">gem_temp =</span> <span class="fu">mean</span>(temperatuur_graden, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">max_temp =</span> <span class="fu">max</span>(temperatuur_graden, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">min_temp =</span> <span class="fu">min</span>(temperatuur_graden, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(datum, gem_temp, min_temp, max_temp) <span class="sc">|&gt;</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(gem_temp, max_temp, min_temp)) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6,258 × 3
+   datum      name     value
+   &lt;date&gt;     &lt;chr&gt;    &lt;dbl&gt;
+ 1 2021-01-01 gem_temp  2.04
+ 2 2021-01-01 max_temp  3.5 
+ 3 2021-01-01 min_temp  0.4 
+ 4 2021-01-02 gem_temp  1.62
+ 5 2021-01-02 max_temp  2.4 
+ 6 2021-01-02 min_temp  0   
+ 7 2021-01-03 gem_temp  2.14
+ 8 2021-01-03 max_temp  2.6 
+ 9 2021-01-03 min_temp  1.5 
+10 2021-01-04 gem_temp  1.52
+# ℹ 6,248 more rows</code></pre>
+</div>
+</div>
+<p>Dit is dan weer goed om te zetten naar een grafiek en de kleur van de lijn zal bepaald worden voor de waarde in de kolom <code>name</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>maastricht_2021_2030 <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(datum) <span class="sc">|&gt;</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">gem_temp =</span> <span class="fu">mean</span>(temperatuur_graden, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">max_temp =</span> <span class="fu">max</span>(temperatuur_graden, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">min_temp =</span> <span class="fu">min</span>(temperatuur_graden, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(datum, gem_temp, min_temp, max_temp) <span class="sc">|&gt;</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(gem_temp, max_temp, min_temp)) <span class="sc">|&gt;</span> </span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>datum, <span class="at">y =</span> value)) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">colour =</span> name)) <span class="sc">+</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Datum"</span>, <span class="at">y=</span><span class="st">"Temperatuur in graden"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="grounded_wc2_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="nu-even-zelf-nadenken" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="nu-even-zelf-nadenken"><span class="header-section-number">3.4.1</span> Nu even zelf nadenken</h3>
+<ol type="1">
+<li>Maak de bovenstaande grafiek voor het jaar 2021.</li>
+<li>Maak dezelfde grafiek maar dan voor het jaar 2025.</li>
+<li>Maak dezelfde grafiek maar dan voor het huidige jaar (is weliswaar nog niet afgelopen).</li>
+<li>Wat valt op wanneer je de verschillende jaren vergelijkt?</li>
+</ol>
+<p>We hebben een aantal trends gezien van verschillende jaren. Je zou dit ook kunnen laten zien door de data te groeperen per maand en de daggemiddeldes in een boxplot te zetten:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>maastricht_2021_2030 <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="fu">month</span>(datum)) <span class="sc">|&gt;</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">month</span>(datum), <span class="at">y =</span> temperatuur_graden)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="fu">month</span>(datum))) <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Maanden"</span>, <span class="at">y =</span> <span class="st">"Temperatuur (graden)"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="grounded_wc2_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Hier zijn echter de zogenaamde ticks op de x-as niet heel mooi, maar gelukkig kun je dat eenvoudig aanpassen. Dat is wel eenmalig wat typewerk. We gebruiken <code>scale_x_continuous</code> omdat de maanden worden omgezet naar een continue schaal in de software. Door de groepering maken het de eenheden echter discreet.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>maastricht_2021_2030 <span class="sc">|&gt;</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="fu">month</span>(datum)) <span class="sc">|&gt;</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">month</span>(datum), <span class="at">y =</span> temperatuur_graden)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="fu">month</span>(datum))) <span class="sc">+</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Maanden"</span>, <span class="at">y =</span> <span class="st">"Temperatuur (graden)"</span>) <span class="sc">+</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Januari"</span>, <span class="st">"Februari"</span>, <span class="st">"Maart"</span>, <span class="st">"April"</span>, <span class="st">"Mei"</span>,<span class="st">"Juni"</span>, <span class="st">"Juli"</span>, <span class="st">"Augustus"</span>, <span class="st">"September"</span>, <span class="st">"Oktober"</span>, <span class="st">"November"</span>, <span class="st">"December"</span>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="grounded_wc2_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Door deze grafiek te maken worden de meerjarige trends in de temperatuur duidelijk en begin je een idee te krijgen van het klimaat in onze regio, waarbij de zomers gemiddeld warm zijn en de winters kouder.</p>
+</section>
+<section id="zelf-aan-de-slag" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="zelf-aan-de-slag"><span class="header-section-number">3.4.2</span> Zelf aan de slag</h3>
+<ol type="1">
+<li>Op welke datum is de hoogste temperatuur gemeten in deze periode?</li>
+<li>Op welke datum is de laagste temperatuur gemeten?</li>
+<li>In welke jaren vielen de 10 heetste dagen?</li>
+<li>Maak een grafiek met daarin alleen temperaturen die meer dan 2 standaarddeviaties boven het gemiddelde liggen.</li>
+</ol>
+</section>
+</section>
+<section id="grafieken-combineren" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="grafieken-combineren"><span class="header-section-number">3.5</span> Grafieken combineren</h2>
+<p>We hebben hiervoor een grafiek van de neerslag gemaakt en gezien dat in een bepaalde periode in 2021 een extreme hoeveelheid neerslag is geweest. We kunnen nu ook een grafiek maken waarbij en de neerslag en de temperatuur op die dagen te zien is. Het <code>ggpubr</code> package biedt mogelijkheden om grafieken te combineren. Hiertoe gebruiken we <code>ggarrange()</code>, waarbij de syntax is <code>ggarrange(grafiek_1, grafiek_2, ncol = 1)</code>. Op deze manier gebruikt hij twee grafieken en zet ze onder elkaar. Je kunt ze met <code>nrow = 1</code> ook naast elkaar zetten. Met deze functie kun je vele grafieken tegelijkertijd laten zien, waarbij de assen op elkaar afgestemd zijn.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  maastricht_2021_2030 <span class="sc">|&gt;</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(datum) <span class="sc">|&gt;</span> </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(YYYYMMDD <span class="sc">&gt;=</span> <span class="dv">20210600</span> <span class="sc">&amp;</span> YYYYMMDD <span class="sc">&lt;=</span> <span class="dv">20210715</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">gem_temp =</span> <span class="fu">mean</span>(temperatuur_graden, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>datum, <span class="at">y =</span> gem_temp)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Datum"</span>, <span class="at">y =</span> <span class="st">"Gemiddelde temperatuur per dag"</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  ,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  maastricht_2021_2030 <span class="sc">|&gt;</span> </span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(datum) <span class="sc">|&gt;</span> </span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(YYYYMMDD <span class="sc">&gt;=</span> <span class="dv">20210600</span> <span class="sc">&amp;</span> YYYYMMDD <span class="sc">&lt;=</span> <span class="dv">20210715</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">neerslagsom =</span> <span class="fu">sum</span>(neerslag_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>datum, <span class="at">y =</span> neerslagsom)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"Identity"</span>) <span class="sc">+</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Datum"</span>, <span class="at">y =</span> <span class="st">"Neerslagsom per dag"</span>)</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  , <span class="at">ncol =</span> <span class="dv">1</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="grounded_wc2_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="zelf-aan-de-slag-1" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="zelf-aan-de-slag-1"><span class="header-section-number">3.5.1</span> Zelf aan de slag</h3>
+<ol type="1">
+<li>Maak de bovenstaande grafiek voor januari 2026. Wat valt op?</li>
+<li>Maak dezelfde grafiek, maar zet nu de neerslag boven en de temperatuur boven.</li>
+<li>Maak dezelfde grafiek, maar zorg dat de grafieken naast elkaar staan.</li>
+</ol>
+<p>Het is ook mogelijk om twee verschillende grafieken te combineren in één grafiek, door bijvoorbeeld eerst een <code>geom_line()</code> te maken en daarna met andere data een <code>geom_bar()</code> hieraan toe te voegen. Op deze manier krijg je alle data samen in één grafiek. In het onderstaande voorbeeld voegen we een extra y-as toe, ter verduidelijking, met <code>scale_y_continuous(sec.axis = sec_axis(~.,name = "Neerslag (mm)"))</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>maastricht_2021_2030 <span class="sc">|&gt;</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(datum) <span class="sc">|&gt;</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(YYYYMMDD <span class="sc">&gt;=</span> <span class="dv">20210600</span> <span class="sc">&amp;</span> YYYYMMDD <span class="sc">&lt;=</span> <span class="dv">20210715</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">gem_temp =</span> <span class="fu">mean</span>(temperatuur_graden, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">neerslagsom =</span> <span class="fu">sum</span>(neerslag_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>datum, <span class="at">y =</span> gem_temp)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x=</span>datum, <span class="at">y =</span> neerslagsom), <span class="at">stat =</span> <span class="st">"Identity"</span>) <span class="sc">+</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span>.,<span class="at">name =</span> <span class="st">"Neerslag (mm)"</span>)) <span class="sc">+</span> </span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">"Temperatuur (Celsius)"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="grounded_wc2_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Welke grafiek vind jij duidelijker? Twee losse grafieken of een gecombineerde grafiek met verschillende y-assen? En waarom?</p>
+</section>
+</section>
+<section id="klimaat-meerjarige-data" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="klimaat-meerjarige-data"><span class="header-section-number">3.6</span> Klimaat: meerjarige data</h2>
+<p>We hebben nu vooral data van een enkele weerstation bekeken en de uurgegevens gecombineerd tot daggevens. Het KNMI biedt echter ook veel data aan over hele lange periodes. Het langst-functionerende weerstation is het station in De Bilt. Ga naar <a href="https://www.knmi.nl/nederland-nu/klimatologie/daggegevens" class="uri">https://www.knmi.nl/nederland-nu/klimatologie/daggegevens</a> en download daar de data van De Bilt. Het bestand heet <code>etmgeg_260.zip</code> pak het zip-bestand uit en plaats <code>etmgeg_260.txt</code> in de map met data. Lees dit bestand in en denk daarbij aan de voorgaande opdracht met betrekking tot de datum, de neerslag in mm en de temperatuur in graden. Zorg dus dat je een veld voor <code>datum</code> aanmaakt bij inlezen, een voor de neerslag in mm <code>neerslag_mm</code> en voor de gemiddelde dagtemperatuur (<code>temperatuur_gem_graden</code>). Let goed op hoeveel regels je moet overslaan</p>
+<p>Hopelijk is dit geheel zelfstandig gelukt? Laten we eens een grafiek maken van de temperatuur van 1900 tot nu.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>de_bilt <span class="sc">|&gt;</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>datum, <span class="at">y=</span>temperatuur_gem_graden)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="grounded_wc2_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="zelf-doen" class="level3" data-number="3.6.1">
+<h3 data-number="3.6.1" class="anchored" data-anchor-id="zelf-doen"><span class="header-section-number">3.6.1</span> Zelf doen:</h3>
+<ol type="1">
+<li>Dit is nog niet heel duidelijk dus voeg zelf even een trendlijn toe, om de trend te zien.</li>
+<li>Dit is nog steeds niet zo mooi, dus verander de grafiek van een lijndiagram naar een spreidingsdiagram met punten.</li>
+</ol>
+<p>Deze trendlijn laat goed zien dat er een opwaartse trend in de gemiddelde dagtemperatuur zit, maar echt een sterkte trend zien we niet. Hierbij speelt ook dat de temperatuur in de loop van het jaar in de verschillende seizoenen verandert. Daarom gaan we nu de data groeperen op jaar en dan de gemiddelde temperatuur per jaar berekenen en visualiseren in een grafiek. Dat doen we aldus:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>de_bilt <span class="sc">|&gt;</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="fu">year</span>(datum)) <span class="sc">|&gt;</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">gemiddeld_jaar =</span> <span class="fu">mean</span>(temperatuur_gem_graden)) <span class="sc">|&gt;</span> </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">"jaar"</span>, <span class="st">"gemiddelde_jaartemperatuur"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>jaar, <span class="at">y=</span>gemiddelde_jaartemperatuur)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>()) <span class="sc">+</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Jaar"</span>, <span class="at">y=</span><span class="st">"Gemiddelde jaartemperatuur"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="grounded_wc2_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Let hierbij op, want door te groeperen en daarna een gemiddelde te berekenen heeft de kolom met het jaar een nieuwe interne naam gekregen die onhandig is. Daarom helpen we onszelf door de beide kolommen een nieuwe naam te geven met de functie <code>setNames(c("jaar", "gemiddelde_jaartemperatuur"))</code>.</p>
+<p>De nu gemaakte grafiek laat een veel sterkere verandering van het klimaat zien en dat de gemiddelde jaartemperatuur sinds de jaren ’60 zeer sterk is gestegen, iets wat we kennen als klimaatverandering.</p>
+</section>
+<section id="en-dan-weer-zelf-aan-de-slag" class="level3" data-number="3.6.2">
+<h3 data-number="3.6.2" class="anchored" data-anchor-id="en-dan-weer-zelf-aan-de-slag"><span class="header-section-number">3.6.2</span> En dan weer zelf aan de slag</h3>
+<ol type="1">
+<li>Maak een grafiek van de gemiddelde jaarlijkse neerslag. Zijn daar trends in te zien?</li>
+<li>Maak een visualisatie van zowel de grafiek met de gemiddelde jaarlijkse temperatuur en die van de neerslag, waarbij deze grafieken boven elkaar staan.</li>
+<li>Er zijn bepaalde trends zichtbaar. Wat betekent dat voor jouw onderzoeksgebied? Welke aanpassingen zijn nodig in het onderzoeksgebied?</li>
+</ol>
+</section>
+</section>
+<section id="historische-klimaatdata-toevoegen" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="historische-klimaatdata-toevoegen"><span class="header-section-number">3.7</span> Historische klimaatdata toevoegen</h2>
+<p>De metingen in De Bilt worden sinds 1901 goed bijgehouden, maar er bestaan ook oudere metingen, welke ons een goed beeld kunnen geven van de veranderingen van het klimaat over de afgelopen eeuwen. Deze biedt het KNMI ook kostenloos aan via: <a href="https://www.knmi.nl/nederland-nu/klimatologie/daggegevens/antieke-waarnemingen" class="uri">https://www.knmi.nl/nederland-nu/klimatologie/daggegevens/antieke-waarnemingen</a>. Ze bieden diverse data-bronnen aan en we gebruiken nu de langstlopende uit Utrecht: <a href="https://cdn.knmi.nl/knmi/map/page/klimatologie/gegevens/daggegevens/antieke_wrn/labrijn_ea.zip" class="uri">https://cdn.knmi.nl/knmi/map/page/klimatologie/gegevens/daggegevens/antieke_wrn/labrijn_ea.zip</a>. Pak deze zip uit en plaats het bestand <code>labrijn_ea.dat</code> in de <code>data</code>-map.</p>
+<p>Het bestand <code>labrijn_ea.dat</code> lijkt een wat exotisch formaat, maar als je deze in een tekst-editor bekijkt, lijkt het gewoon een soort CSV-bestand, maar dan met een andere extensie.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="&quot;img/labrijn.png&quot;" class="img-fluid figure-img"></p>
+<figcaption>De data in het bestand <code>labrijn_ea.dat</code></figcaption>
+</figure>
+</div>
+<p>Het is opvallen dat de data niet door een symbool wordt gescheiden, maar dat er gebruik gemaakt wordt van vaste kolombreedtes. Dat is niet goed in te lezen met <code>read.csv()</code>, maar gelukkig zijn er andere tools. De readr-library <span class="citation" data-cites="wickham2026">(<a href="references.html#ref-wickham2026" role="doc-biblioref">Wickham et al. 2026</a>)</span> heeft de functie <code>read_fwf()</code> die gemaakt is voor het inlezen van fixed-width-files. De titels van de velden staan weer wat onhandig met gewoon inlezen, dat de die eerst skippen en daarna opnieuw aanmaken met <code>setNames()</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>labrijn <span class="ot">&lt;-</span> <span class="fu">read_fwf</span>(<span class="st">"data/labrijn_ea.dat"</span>, <span class="at">skip =</span> <span class="dv">22</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">"Jaar"</span>, <span class="st">"Jan"</span>, <span class="st">"Feb"</span>, <span class="st">"Mar"</span>, <span class="st">"Apr"</span>, <span class="st">"May"</span>, <span class="st">"Jun"</span>, <span class="st">"Jul"</span>, <span class="st">"Aug"</span>, <span class="st">"Sep"</span>, <span class="st">"Oct"</span>, <span class="st">"Nov"</span>, <span class="st">"Dec"</span>, <span class="st">"Year_temp"</span>, <span class="st">"Win"</span>, <span class="st">"Spr"</span>, <span class="st">"Sum"</span>, <span class="st">"Aut"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Met deze data kunnen we nu eenvoudig verschillende grafieken maken. Laten we beginnen met de gemiddelde jaartemperatuur, met een langjarige trendlijn.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>labrijn <span class="sc">|&gt;</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Jaar, <span class="at">y=</span>Year_temp<span class="sc">/</span><span class="dv">10</span>)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"Gemiddelde temperatuur"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="grounded_wc2_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Nu wordt nog duidelijker welke enorme gemiddelde opwarming van de aarde op dit moment gaande is en dat die met name sinds het midden van de twintigste eeuw uitermate hard stijgt. We zien ook een grote variatie van jaar tot jaar, maar dat de afgelopen jaren de variatie eigenlijk steeds minder aan het worden is</p>
+<p>Het is ook mogelijk om eens te kijken of de temperaturen in de verschillende seizoenen in deze dataset anders toenemen. Daartoe moeten we weer gebruik maken van de <code>pivot_longer()</code> optie. Daarnaast zijn alle temperaturen weer in 0.1 graden Celsius, dus ook hier weer omrekenen. Door de kleur te bepalen bij de <em>aesthetics</em> bij het aanroepen van ggplot, worden de trendlijnen automatisch per seizoen bepaald.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>labrijn <span class="sc">|&gt;</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"Win"</span>, <span class="st">"Spr"</span>, <span class="st">"Sum"</span>, <span class="st">"Aut"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Jaar, <span class="at">y=</span>value<span class="sc">/</span><span class="dv">10</span>, <span class="at">colour=</span>name)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"Gemiddelde temperatuur"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="grounded_wc2_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Als je de de kleur alleen voor de punten instelt (bij <code>geom_point()</code>), zal de algemene trendlijn van alle seizoenen worden bepaald. Dat is in dit geval net geheel logisch, maar kan wel.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>labrijn <span class="sc">|&gt;</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"Win"</span>, <span class="st">"Spr"</span>, <span class="st">"Sum"</span>, <span class="st">"Aut"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Jaar, <span class="at">y=</span>value<span class="sc">/</span><span class="dv">10</span>)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour=</span>name)) <span class="sc">+</span> <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"Gemiddelde temperatuur"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="grounded_wc2_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Deze laatste trendlijnen in de grafiek is dus minder goed en vertelt ook minder duidelijk een verhaal.</p>
+<section id="en-nu-zelf-weer-aan-de-slag." class="level3" data-number="3.7.1">
+<h3 data-number="3.7.1" class="anchored" data-anchor-id="en-nu-zelf-weer-aan-de-slag."><span class="header-section-number">3.7.1</span> En nu zelf weer aan de slag.</h3>
+<ol type="1">
+<li>Pas legenda van de grafiek met de trendlijnen per seizoen aan en zorg dat deze een duidelijke titel krijgt en dat de namen van de seizoenen uitgeschreven worden. Tip: maak gebruik van <code>scale_color_discrete()</code>.</li>
+<li>Maak dezelfde grafiek maar dan voor de verschillende maanden van het jaar. Welke maanden laten de grootste veranderingen zien?</li>
+<li>Wat was eigenlijk de warmste maand van de afgelopen eeuwen?</li>
+<li>Wanneer waren de warmste 10 maanden?</li>
+<li>Wanneer waren de koudste 10 maanden?</li>
+</ol>
+</section>
+</section>
+<section id="project" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="project"><span class="header-section-number">3.8</span> Project</h2>
+<p>Denk voor het eigen project na over de volgende vragen.</p>
+<ul>
+<li>Welke invloed heeft het weer op de problemen in mijn onderzoeksgebied?</li>
+<li>Welke invloed heeft het klimaat op de problemen in mijn onderzoeksgebied?</li>
+<li>Welke klimaatsdata heb ik nodig voor mijn onderzoek?</li>
+<li>Er zijn diverse klimaatscenario’s (<a href="https://www.knmi.nl/kennis-en-datacentrum/achtergrond/knmi-23-klimaatscenario-s" class="uri">https://www.knmi.nl/kennis-en-datacentrum/achtergrond/knmi-23-klimaatscenario-s</a>). Welke invloeden kan je voor de toekomst onderscheiden die invloed hebben op het onderzoeksgebied?</li>
+</ul>
+<p>Ga vast aan de slag om de relevante data te verzamelen en maak de benodigde analyses en grafieken.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-grolemund2011" class="csl-entry" role="listitem">
+Grolemund, Garrett, and Hadley Wickham. 2011. <span>“Dates and Times Made Easy with Lubridate.”</span> <em>Journal of Statistical Software</em> 40 (3): 125. <a href="https://www.jstatsoft.org/v40/i03/">https://www.jstatsoft.org/v40/i03/</a>.
+</div>
+<div id="ref-kassambara2023" class="csl-entry" role="listitem">
+Kassambara, Alboukadel. 2023. <em>Ggpubr: ’Ggplot2’ Based Publication Ready Plots</em>. <a href="https://rpkgs.datanovia.com/ggpubr/">https://rpkgs.datanovia.com/ggpubr/</a>.
+</div>
+<div id="ref-wickham2016" class="csl-entry" role="listitem">
+Wickham, Hadley. 2016. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="http://ggplot2.org">http://ggplot2.org</a>.
+</div>
+<div id="ref-wickham2023" class="csl-entry" role="listitem">
+Wickham, Hadley, Romain François, Lionel Henry, Kirill Müller, and Davis Vaughan. 2023. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://dplyr.tidyverse.org">https://dplyr.tidyverse.org</a>.
+</div>
+<div id="ref-wickham2026" class="csl-entry" role="listitem">
+Wickham, Hadley, Jim Hester, and Jennifer Bryan. 2026. <em>Readr: Read Rectangular Text Data</em>. <a href="https://readr.tidyverse.org">https://readr.tidyverse.org</a>.
+</div>
+<div id="ref-wickham2023a" class="csl-entry" role="listitem">
+Wickham, Hadley, Davis Vaughan, and Maximilian Girlich. 2023. <em>Tidyr: Tidy Messy Data</em>. <a href="https://tidyr.tidyverse.org">https://tidyr.tidyverse.org</a>.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./grounded_wc1.html" class="pagination-link" aria-label="Werkcollege 1: de eerste stappen met R en Rstudio">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Werkcollege 1: de eerste stappen met R en Rstudio</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./references.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/RonaldVisser/Grounded_R/edit/main/grounded_wc2.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/RonaldVisser/Grounded_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
