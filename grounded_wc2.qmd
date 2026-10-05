@@ -256,7 +256,7 @@ maastricht_2021_2030 |>
   labs(x="Maanden", y = "Temperatuur (graden)") 
 ```
 
-Hier zijn echter de zogenaamde ticks op de x-as niet heel mooi, maar gelukkig kun je dat eenvoudig aanpassen. Dat is wel eenmalig wat typewerk. We gebruiken `scale_x_continuous` omdat de maanden worden omgezet naar een continue schaal in de software. Door de groepering maken het de eenheden echter discreet.
+Hier zijn echter de zogenaamde ticks op de x-as niet heel mooi, maar gelukkig kun je dat eenvoudig aanpassen. Dat is wel eenmalig wat typewerk. We gebruiken `scale_x_continuous` omdat de maanden worden omgezet naar een continue schaal in de software. Door de groepering maken het de eenheden echter discreet. Voor de leesbaarheid worden de tekstlabels nog even gedraaid met `+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))`. 
 
 ```{r, warning=FALSE, message=FALSE}
 maastricht_2021_2030 |> 
@@ -266,7 +266,8 @@ maastricht_2021_2030 |>
   scale_x_continuous(
     breaks = 1:12,
     labels = c("Januari", "Februari", "Maart", "April", "Mei","Juni", "Juli", "Augustus", "September", "Oktober", "November", "December")
-  )
+  ) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
 
 ```
 
