@@ -256,7 +256,7 @@ maastricht_2021_2030 |>
   labs(x="Maanden", y = "Temperatuur (graden)") 
 ```
 
-Hier zijn echter de zogenaamde ticks op de x-as niet heel mooi, maar gelukkig kun je dat eenvoudig aanpassen. Dat is wel eenmalig wat typewerk. We gebruiken `scale_x_continuous` omdat de maanden worden omgezet naar een continue schaal in de software. Door de groepering maken het de eenheden echter discreet. Voor de leesbaarheid worden de tekstlabels nog even gedraaid met `+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))`. 
+Hier zijn echter de zogenaamde ticks op de x-as niet heel mooi, maar gelukkig kun je dat eenvoudig aanpassen. Dat is wel eenmalig wat typewerk. We gebruiken `scale_x_continuous` omdat de maanden worden omgezet naar een continue schaal in de software. Door de groepering maken het de eenheden echter discreet. Voor de leesbaarheid worden de tekstlabels nog even gedraaid met `+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))`.
 
 ```{r, warning=FALSE, message=FALSE}
 maastricht_2021_2030 |> 
@@ -379,7 +379,7 @@ Het bestand `labrijn_ea.dat` lijkt een wat exotisch formaat, maar als je deze in
 
 ![De data in het bestand `labrijn_ea.dat`](%22img/labrijn.png%22)
 
-Het is opvallen dat de data niet door een symbool wordt gescheiden, maar dat er gebruik gemaakt wordt van vaste kolombreedtes. Dat is niet goed in te lezen met `read.csv()`, maar gelukkig zijn er andere tools. De readr-library  [@wickham2026] heeft de functie `read_fwf()` die gemaakt is voor het inlezen van fixed-width-files. De titels van de velden staan weer wat onhandig met gewoon inlezen, dat de die eerst skippen en daarna opnieuw aanmaken met `setNames()`
+Het is opvallen dat de data niet door een symbool wordt gescheiden, maar dat er gebruik gemaakt wordt van vaste kolombreedtes. Dat is niet goed in te lezen met `read.csv()`, maar gelukkig zijn er andere tools. De readr-library [@wickham2026] heeft de functie `read_fwf()` die gemaakt is voor het inlezen van fixed-width-files. De titels van de velden staan weer wat onhandig met gewoon inlezen, dat de die eerst skippen en daarna opnieuw aanmaken met `setNames()`
 
 ```{r, warning=FALSE, message=FALSE}
 labrijn <- read_fwf("data/labrijn_ea.dat", skip = 22) |> 
@@ -393,6 +393,7 @@ labrijn |>
   ggplot(aes(x=Jaar, y=Year_temp/10)) + geom_point() + geom_smooth() +
     labs(y="Gemiddelde temperatuur")
 ```
+
 Nu wordt nog duidelijker welke enorme gemiddelde opwarming van de aarde op dit moment gaande is en dat die met name sinds het midden van de twintigste eeuw uitermate hard stijgt. We zien ook een grote variatie van jaar tot jaar, maar dat de afgelopen jaren de variatie eigenlijk steeds minder aan het worden is
 
 Het is ook mogelijk om eens te kijken of de temperaturen in de verschillende seizoenen in deze dataset anders toenemen. Daartoe moeten we weer gebruik maken van de `pivot_longer()` optie. Daarnaast zijn alle temperaturen weer in 0.1 graden Celsius, dus ook hier weer omrekenen. Door de kleur te bepalen bij de *aesthetics* bij het aanroepen van ggplot, worden de trendlijnen automatisch per seizoen bepaald.
@@ -417,13 +418,21 @@ Deze laatste trendlijnen in de grafiek is dus minder goed en vertelt ook minder 
 
 ### En nu zelf weer aan de slag.
 
-1.    Pas legenda van de grafiek met de trendlijnen per seizoen aan en zorg dat deze een duidelijke titel krijgt en dat de namen van de seizoenen uitgeschreven worden. Tip: maak gebruik van `scale_color_discrete()`.
-2.    Maak dezelfde grafiek maar dan voor de verschillende maanden van het jaar. Welke maanden laten de grootste veranderingen zien?
-3.    Wat was eigenlijk de warmste maand van de afgelopen eeuwen? 
-4.    Wanneer waren de warmste 10 maanden?
-5.    Wanneer waren de koudste 10 maanden?
+1.  Pas legenda van de grafiek met de trendlijnen per seizoen aan en zorg dat deze een duidelijke titel krijgt en dat de namen van de seizoenen uitgeschreven worden. Tip: maak gebruik van `scale_color_discrete()`.
 
+2.  Maak dezelfde grafiek maar dan voor de verschillende maanden van het jaar. Welke maanden laten de grootste veranderingen zien?
 
+3.  Wat was eigenlijk de warmste maand van de afgelopen eeuwen?
+
+4.  Wanneer waren de warmste 10 maanden?
+
+5.  Wanneer waren de koudste 10 maanden?
+
+    **Extra**
+
+6.  Het WMO publiceert een hele bekende grafiek met de zogenaamde *Warming stripes* (<https://wmo.int/site/science-action/warming-stripes>). Dit laat de temperatuurverschillende zien ten opzichte van de gemiddelde temperatuur tussen 1850 en 1900 (<https://wmo.int/media/news/wmo-publishes-global-update-of-climate-datasets>). Maak een lijndiagram voor de periode 1850 tot nu die hetzelfde laat zien op basis van de `labrijn` dataset.
+
+7.  Lukt het ook om de *warming stripes* voor Nederland te maken?
 
 ## Project
 
@@ -432,17 +441,7 @@ Denk voor het eigen project na over de volgende vragen.
 -   Welke invloed heeft het weer op de problemen in mijn onderzoeksgebied?
 -   Welke invloed heeft het klimaat op de problemen in mijn onderzoeksgebied?
 -   Welke klimaatsdata heb ik nodig voor mijn onderzoek?
--   Er zijn diverse klimaatscenario's (<https://www.knmi.nl/kennis-en-datacentrum/achtergrond/knmi-23-klimaatscenario-s>). Welke invloeden kan je voor de toekomst onderscheiden die invloed hebben op het onderzoeksgebied? 
+-   Er zijn diverse klimaatscenario's (<https://www.knmi.nl/kennis-en-datacentrum/achtergrond/knmi-23-klimaatscenario-s>). Welke invloeden kan je voor de toekomst onderscheiden die invloed hebben op het onderzoeksgebied?
 
 Ga vast aan de slag om de relevante data te verzamelen en maak de benodigde analyses en grafieken.
 
-
-
-```{r, warning=FALSE, message=FALSE}
-
-```
-
-
-```{r, warning=FALSE, message=FALSE}
-
-```
