@@ -9,11 +9,11 @@ In het vorige werkcollege hebben jullie gewerkt met data van grondwaterstanden u
 
 ## Weerdata
 
-Data over het weer wordt door het KNMI als open data aangeboden. Dit is tegenwoordig via <https://dataplatform.knmi.nl/> toegankelijk. De data is toegankelijk via een [API](https://nl.wikipedia.org/wiki/Application_programming_interface). Dit maakt de toegank voor een deel makkelijker, maar er is wel wat code voor nodig. Gelukkig biedt het KNMI ook data aan als eenvoudige downloads: <https://www.knmi.nl/nederland-nu/klimatologie/uurgegevens>. Hierover wordt veel uitgelegd op de website.
+Data over het weer wordt door het KNMI als open data aangeboden. Dit is tegenwoordig via <https://dataplatform.knmi.nl/>{target="_blank"} toegankelijk. De data is toegankelijk via een [API](https://nl.wikipedia.org/wiki/Application_programming_interface). Dit maakt de toegank voor een deel makkelijker, maar er is wel wat code voor nodig. Gelukkig biedt het KNMI ook data aan als eenvoudige downloads: <https://www.knmi.nl/nederland-nu/klimatologie/uurgegevens>{target="_blank"}. Hierover wordt veel uitgelegd op de website.
 
-We gaan werken met de data uit een bepaald gebied. Laten we eens naar het zuiden van het land kijken en in Limburg op zoek gaan naar data. Op <https://www.knmi.nl/kennis-en-datacentrum/uitleg/automatische-weerstations> staat een kaartje met de locaties van alle weerstations. In Limburg is een een weerstation bij Maastricht Airport (380).
+We gaan werken met de data uit een bepaald gebied. Laten we eens naar het zuiden van het land kijken en in Limburg op zoek gaan naar data. Op <https://www.knmi.nl/kennis-en-datacentrum/uitleg/automatische-weerstations>{target="_blank"} staat een kaartje met de locaties van alle weerstations. In Limburg is een een weerstation bij Maastricht Airport (380).
 
-Ga naar <https://www.knmi.nl/nederland-nu/klimatologie/uurgegevens> en download de meest recente data uit Maastricht (2021-2030). Dit bestand zal `uurgeg_380_2021-2030.txt` heten.
+Ga naar <https://www.knmi.nl/nederland-nu/klimatologie/uurgegevens>{target="_blank"} en download de meest recente data uit Maastricht (2021-2030). Dit bestand zal `uurgeg_380_2021-2030.txt` heten.
 
 ### Project en script aanmaken
 
@@ -327,7 +327,7 @@ Welke grafiek vind jij duidelijker? Twee losse grafieken of een gecombineerde gr
 
 ## Klimaat: meerjarige data
 
-We hebben nu vooral data van een enkele weerstation bekeken en de uurgegevens gecombineerd tot daggevens. Het KNMI biedt echter ook veel data aan over hele lange periodes. Het langst-functionerende weerstation is het station in De Bilt. Ga naar <https://www.knmi.nl/nederland-nu/klimatologie/daggegevens> en download daar de data van De Bilt. Het bestand heet `etmgeg_260.zip` pak het zip-bestand uit en plaats `etmgeg_260.txt` in de map met data. Lees dit bestand in en denk daarbij aan de voorgaande opdracht met betrekking tot de datum, de neerslag in mm en de temperatuur in graden. Zorg dus dat je een veld voor `datum` aanmaakt bij inlezen, een voor de neerslag in mm `neerslag_mm` en voor de gemiddelde dagtemperatuur (`temperatuur_gem_graden`). Let goed op hoeveel regels je moet overslaan
+We hebben nu vooral data van een enkele weerstation bekeken en de uurgegevens gecombineerd tot daggevens. Het KNMI biedt echter ook veel data aan over hele lange periodes. Het langst-functionerende weerstation is het station in De Bilt. Ga naar <https://www.knmi.nl/nederland-nu/klimatologie/daggegevens>{target="_blank"} en download daar de data van De Bilt. Het bestand heet `etmgeg_260.zip` pak het zip-bestand uit en plaats `etmgeg_260.txt` in de map met data. Lees dit bestand in en denk daarbij aan de voorgaande opdracht met betrekking tot de datum, de neerslag in mm en de temperatuur in graden. Zorg dus dat je een veld voor `datum` aanmaakt bij inlezen, een voor de neerslag in mm `neerslag_mm` en voor de gemiddelde dagtemperatuur (`temperatuur_gem_graden`). Let goed op hoeveel regels je moet overslaan
 
 ```{r, warning=FALSE, message=FALSE, echo=FALSE}
 de_bilt <- read.csv("data/etmgeg_260.txt", skip = 51, colClasses = "integer") |>
@@ -373,7 +373,7 @@ De nu gemaakte grafiek laat een veel sterkere verandering van het klimaat zien e
 
 ## Historische klimaatdata toevoegen
 
-De metingen in De Bilt worden sinds 1901 goed bijgehouden, maar er bestaan ook oudere metingen, welke ons een goed beeld kunnen geven van de veranderingen van het klimaat over de afgelopen eeuwen. Deze biedt het KNMI ook kostenloos aan via: <https://www.knmi.nl/nederland-nu/klimatologie/daggegevens/antieke-waarnemingen>. Ze bieden diverse data-bronnen aan en we gebruiken nu de langstlopende uit Utrecht: <https://cdn.knmi.nl/knmi/map/page/klimatologie/gegevens/daggegevens/antieke_wrn/labrijn_ea.zip>. Pak deze zip uit en plaats het bestand `labrijn_ea.dat` in de `data`-map.
+De metingen in De Bilt worden sinds 1901 goed bijgehouden, maar er bestaan ook oudere metingen, welke ons een goed beeld kunnen geven van de veranderingen van het klimaat over de afgelopen eeuwen. Deze biedt het KNMI ook kostenloos aan via: <https://www.knmi.nl/nederland-nu/klimatologie/daggegevens/antieke-waarnemingen>{target="_blank"}. Ze bieden diverse data-bronnen aan en we gebruiken nu de langstlopende uit Utrecht: <https://cdn.knmi.nl/knmi/map/page/klimatologie/gegevens/daggegevens/antieke_wrn/labrijn_ea.zip>{target="_blank"}. Pak deze zip uit en plaats het bestand `labrijn_ea.dat` in de `data`-map.
 
 Het bestand `labrijn_ea.dat` lijkt een wat exotisch formaat, maar als je deze in een tekst-editor bekijkt, lijkt het gewoon een soort CSV-bestand, maar dan met een andere extensie.
 
@@ -430,7 +430,7 @@ Deze laatste trendlijnen in de grafiek is dus minder goed en vertelt ook minder 
 
     **Extra**
 
-6.  Het WMO publiceert een hele bekende grafiek met de zogenaamde *Warming stripes* (<https://wmo.int/site/science-action/warming-stripes>). Dit laat de temperatuurverschillende zien ten opzichte van de gemiddelde temperatuur tussen 1850 en 1900 (<https://wmo.int/media/news/wmo-publishes-global-update-of-climate-datasets>). Maak een lijndiagram voor de periode 1850 tot nu die hetzelfde laat zien op basis van de `labrijn` dataset.
+6.  Het WMO publiceert een hele bekende grafiek met de zogenaamde *Warming stripes* (<https://wmo.int/site/science-action/warming-stripes>{target="_blank"}). Dit laat de temperatuurverschillende zien ten opzichte van de gemiddelde temperatuur tussen 1850 en 1900 (<https://wmo.int/media/news/wmo-publishes-global-update-of-climate-datasets>{target="_blank"}). Maak een lijndiagram voor de periode 1850 tot nu die hetzelfde laat zien op basis van de `labrijn` dataset.
 
 7.  Lukt het ook om de *warming stripes* voor Nederland te maken?
 
@@ -441,7 +441,7 @@ Denk voor het eigen project na over de volgende vragen.
 -   Welke invloed heeft het weer op de problemen in mijn onderzoeksgebied?
 -   Welke invloed heeft het klimaat op de problemen in mijn onderzoeksgebied?
 -   Welke klimaatsdata heb ik nodig voor mijn onderzoek?
--   Er zijn diverse klimaatscenario's (<https://www.knmi.nl/kennis-en-datacentrum/achtergrond/knmi-23-klimaatscenario-s>). Welke invloeden kan je voor de toekomst onderscheiden die invloed hebben op het onderzoeksgebied?
+-   Er zijn diverse klimaatscenario's (<https://www.knmi.nl/kennis-en-datacentrum/achtergrond/knmi-23-klimaatscenario-s>{target="_blank"}). Welke invloeden kan je voor de toekomst onderscheiden die invloed hebben op het onderzoeksgebied?
 
 Ga vast aan de slag om de relevante data te verzamelen en maak de benodigde analyses en grafieken.
 
