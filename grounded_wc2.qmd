@@ -19,7 +19,7 @@ Ga naar <https://www.knmi.nl/nederland-nu/klimatologie/uurgegevens>{target="_bla
 
 Je hebt vorig week geleerd een project aan te maken. Maak een nieuw project aan in een nieuwe map. Deze noemen we nu Grounded_WC2.
 
-Maak ook een eerste script aan en geef deze een logische en passend naam. We beginnen weer met het aanroepen van de juiste bibliotheken. Dat zijn deze keer wederom dplyr [@wickham2023], ggplot [@wickham2016] en lubridate [@grolemund2011]. Daarnaast gaan we nieuwe libraries gebruiken: tidyr [@wickham2023a], ggpubr [@kassambara2023] en readr [@wickham2026].
+Maak ook een script aan en geef deze een logische en passend naam. We beginnen weer met het aanroepen van de juiste bibliotheken. Dat zijn deze keer wederom dplyr [@wickham2023], ggplot [@wickham2016] en lubridate [@grolemund2011]. Daarnaast gaan we nieuwe libraries gebruiken: tidyr [@wickham2023a], ggpubr [@kassambara2023] en readr [@wickham2026].
 
 ```{r, warning=FALSE, message=FALSE}
 # load libraries
