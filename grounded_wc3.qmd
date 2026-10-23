@@ -289,7 +289,10 @@ tm_basemap(pdok_basemap("grijs")) +
 
 ## Individuele meetreeksen downloaden
 
-In de dataset `gw_stand_delft` bestaat een aantal kolommen met daarin een link naar een csv-bestand: - series_unknown_csv_url - series_preliminary_csv_url - series_fully_assessed_csv_url
+In de dataset `gw_stand_delft` bestaat een aantal kolommen met daarin een link naar een csv-bestand: 
+- series_unknown_csv_url 
+- series_preliminary_csv_url 
+- series_fully_assessed_csv_url
 
 Deze kolommen bevatten een aantal links. Als we de links willen zien, kunnen we bijvoorbeeld de eerste rij selecteren en dan kolommen 17,18 en 19 met `gw_stand_delft[1,17:19]`. Dat is basis-R. Je kunt ook met dplyr uit de *tidy verse* de namen van de kolommen selecteren met `gw_stand_delft[1,] |>  select(series_unknown_csv_url, series_preliminary_csv_url, series_unknown_csv_url)`
 
@@ -325,7 +328,7 @@ for (i in 1:nrow(gw_stand_delft)) {
 
 Deze code loopt helaas vast op een foutmelding, omdat sommige data niet gevonden kan worden. Daarom gaan de we `try`-functie gebruiken, om zo foutmeldingen te kunnen verwerken. Lees vooral de annotatie in de onderstaande code
 
-```{r}
+```{r, warning=FALSE, eval=FALSE}
 # verdwijder eventueel bestaande metingen
 if (exists("gw_metingen_delft")) {
   rm(gw_metingen_delft)
@@ -368,14 +371,14 @@ gw_stand_delft$status_meting[is.na(gw_stand_delft$status_meting)] <- "afwezig"
 
 Nu we veel data gedownload hebben en dat tijd gekost heeft, is het fijn om deze data lokaal op te slaan. Dat kan met de functie `saveRDS()`. Wil je meer weten over dit formaat, kijk dan even hier <https://www.geeksforgeeks.org/r-language/data-serialization-rds-using-r/>.
 
-```{r}
+```{r, eval=FALSE}
 # opslaan data als RDS
 saveRDS(gw_metingen_delft, "data/gw_metingen_delft.rds")
 ```
 
 Dit maakt het mogelijk om aangemaakte data later weer in te lezen met:
 
-```{r}
+```{r, eval=TRUE}
 # inlezen rds-bestand 
 gw_metingen_delft <- readRDS("data/gw_metingen_delft.rds")
 ```
