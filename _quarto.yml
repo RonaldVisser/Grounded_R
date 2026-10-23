@@ -17,6 +17,7 @@ book:
     - intro.qmd
     - grounded_wc1.qmd
     - grounded_wc2.qmd
+    - grounded_wc3.qmd
     - references.qmd
   sidebar:
     logo: "img/logo-grounded_2.jpg"
