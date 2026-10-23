@@ -289,10 +289,7 @@ tm_basemap(pdok_basemap("grijs")) +
 
 ## Individuele meetreeksen downloaden
 
-In de dataset `gw_stand_delft` bestaat een aantal kolommen met daarin een link naar een csv-bestand: 
-- series_unknown_csv_url 
-- series_preliminary_csv_url 
-- series_fully_assessed_csv_url
+In de dataset `gw_stand_delft` bestaat een aantal kolommen met daarin een link naar een csv-bestand: - series_unknown_csv_url - series_preliminary_csv_url - series_fully_assessed_csv_url
 
 Deze kolommen bevatten een aantal links. Als we de links willen zien, kunnen we bijvoorbeeld de eerste rij selecteren en dan kolommen 17,18 en 19 met `gw_stand_delft[1,17:19]`. Dat is basis-R. Je kunt ook met dplyr uit de *tidy verse* de namen van de kolommen selecteren met `gw_stand_delft[1,] |>  select(series_unknown_csv_url, series_preliminary_csv_url, series_unknown_csv_url)`
 
@@ -364,7 +361,7 @@ Als het goed is, is het nu gelukt om de data in te lezen en heeft dit een aardig
 
 Het is wel fijn om nog even vast te leggen welke metingen beschikbaar zijn en welke niet. Dat kan door een nieuw veld toe te voegen met de naam `status_meting`
 
-```{r}
+```{r, eval=FALSE}
 gw_stand_delft$status_meting[gw_stand_delft$bro_id %in% unique(gw_metingen_delft$bro_id)] <- "aanwezig"
 gw_stand_delft$status_meting[is.na(gw_stand_delft$status_meting)] <- "afwezig"
 ```
@@ -452,7 +449,18 @@ tm_basemap(pdok_basemap("grijs")) +
 1.  Bepaal de totale lengte van de kades langs wegen in Delft. Je kunt hiervoor gebruik maken van `st_length()`. Dit geeft alvast een indicatie ten aanzien van mogelijk onderhoud in deze stad.
 2.  Als het goed is, heb je gezien dat nog niet alle kades zijn gevonden. Dat komt omdat er ook gebouwen grenzen aan water. Bepaal ook deze kades.
 3.  Welke kades missen nog? Zoek de juiste lagen op in PDOK om dit te bepalen.
+4.  Het openbaar vervoer is ook in PDOK te vinden. Welke busroutes lopen door de stad? Kun je die ook op de kaart zetten?
 
 ## Tot slot
 
-Je hebt in deze les geleerd om - data uit PDOK te zoeken - lagen uit PDOK in R in te laden - met loops te werken -
+Je hebt in deze les geleerd om
+
+-   data uit PDOK te zoeken
+
+-   lagen uit PDOK in R in te laden
+
+-   met loops te werken
+
+-   ruimtelijke bewerkingen uit te voeren
+
+-   een start te maken met ruimtelijke analyses.
