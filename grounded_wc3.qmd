@@ -450,6 +450,7 @@ tm_basemap(pdok_basemap("grijs")) +
 2.  Als het goed is, heb je gezien dat nog niet alle kades zijn gevonden. Dat komt omdat er ook gebouwen grenzen aan water. Bepaal ook deze kades.
 3.  Welke kades missen nog? Zoek de juiste lagen op in PDOK om dit te bepalen.
 4.  Het openbaar vervoer is ook in PDOK te vinden. Welke busroutes lopen door de stad? Kun je die ook op de kaart zetten?
+5.  De hoogte van de kades is nu niet bekend, maar het zou mogelijk moeten zijn om deze te kunnen achterhalen op basis van open data. Hoe zou je dat aanpakken? Kun je dat ook in R?
 
 ## Tot slot
 
