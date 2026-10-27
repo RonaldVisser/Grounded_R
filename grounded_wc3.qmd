@@ -106,8 +106,11 @@ Het CBS biedt echter nog veel meer data aan over de bevolking in de wijken, waar
 
 ```{r}
 buurten2025 <- pdok_read(
-  "cbs/wijken-en-buurten-2025", "buurten", filter_by = Apeldoorn_grens)
+  "cbs/wijken-en-buurten-2025", "buurten", filter_by = Apeldoorn_grens) |> 
+  filter(gemeentenaam = "Apeldoorn")
 ```
+
+Het extra filter op gemeentenaam is nodig, omdat de ruimtelijke begrenzing met de gemeentegrens ook enkele polygonen van buurgemeentes selecteert.
 
 Bekijk deze tabel eens even, om te zien welke data hierin zit.
 
