@@ -9,7 +9,7 @@ In de voorgaande werkcolleges hebben jullie gewerkt met [grondwaterstanden uit v
 
 ## Project aanmaken
 
-Maak een nieuw project aan voor dit werkcollege. Als je niet meer weet hoe dat moet, kijk dan even bij het (eerste werkcollege)(grounded_wc1.qmd).
+Maak een nieuw project aan voor dit werkcollege. Als je niet meer weet hoe dat moet, kijk dan even bij het [eerste werkcollege](grounded_wc1.qmd).
 
 Maak ook een nieuw script aan om in te werken en sla deze op in de projectmap. Zorg ook voor de standaardmappen `data` en `export`.
 
